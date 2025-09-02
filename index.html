@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -145,11 +147,39 @@
             color: #718096;
         }
         
-        .features-grid {
+        .features-grid-5 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
+        
+        @media (min-width: 992px) {
+            .features-grid-5 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .features-grid-5 .feature-card:nth-child(4) {
+                grid-column: 1 / 2;
+            }
+            .features-grid-5 .feature-card:nth-child(5) {
+                grid-column: 2 / 4;
+            }
+        }
+        @media (min-width: 1200px) {
+             .features-grid-5 {
+                grid-template-columns: repeat(5, 1fr);
+            }
+             .features-grid-5 .feature-card:nth-child(n) {
+                grid-column: auto;
+            }
+        }
+
+
+        .features-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
         .feature-card {
             background: var(--card-bg);
             padding: 35px;
@@ -196,7 +226,7 @@
             padding: 80px 0;
             text-align: center;
             background: var(--dark-bg);
-            overflow: hidden; /* For animation */
+            overflow: hidden;
         }
         .download-section h2 {
             font-size: 2.8rem;
@@ -308,7 +338,7 @@
                     <h2>Nền tảng Cho Giáo viên</h2>
                     <p class="section-subtitle">Giảm tải công việc hành chính, tự động hóa việc soạn thảo giáo án và đề thi phức tạp, giúp thầy cô tập trung vào chuyên môn giảng dạy.</p>
                 </div>
-                <div class="features-grid">
+                <div class="features-grid-5">
                     <div class="feature-card">
                         <div class="icon">📑</div>
                         <h3>Soạn Giáo án AI</h3>
@@ -318,6 +348,11 @@
                         <div class="icon">✍️</div>
                         <h3>Tạo Đề thi Thông minh</h3>
                         <p>AI có thể tạo ra một đề thi hoàn chỉnh chỉ trong vài phút, dựa trên các lựa chọn về môn học và khối lớp của giáo viên.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">📚</div>
+                        <h3>Kho Học Liệu & Thuyết Trình</h3>
+                        <p>Truy cập thư viện bài giảng PowerPoint phong phú, được sắp xếp theo từng chủ đề để phục vụ công tác giảng dạy.</p>
                     </div>
                     <div class="feature-card">
                         <div class="icon">🔬</div>
@@ -340,7 +375,7 @@
                     <h2>Nền tảng Cho Học sinh</h2>
                     <p class="section-subtitle">Cung cấp một môi trường học tập số hiện đại, tập trung và hiệu quả, giúp học sinh chủ động củng cố kiến thức và bứt phá trong học tập.</p>
                 </div>
-                <div class="features-grid">
+                <div class="features-grid-4">
                     <div class="feature-card">
                         <div class="icon">🎯</div>
                         <h3>Edu Mode - Chống Xao nhãng</h3>
