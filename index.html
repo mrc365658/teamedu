@@ -3,82 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Edu - Bộ Đôi Ứng Dụng Giáo Dục AI</title>
+    <title>Team Edu - Kiến Tạo Tương Lai Giáo Dục</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --teacher-primary: #3182CE;
-            --teacher-primary-hover: #2B6CB0;
-            --teacher-bg-light: #EBF8FF;
-            --student-primary: #D53F8C;
-            --student-primary-hover: #B83280;
-            --student-bg-light: #FFF5F7;
-            --dark-bg: #1A202C;
-            --light-bg: #F7FAFC;
-            --text-dark: #2D3748;
-            --text-light: #E2E8F0;
-            --card-bg: #FFFFFF;
-            --border-color: #E2E8F0;
+            --teacher-primary-start: #4A90E2;
+            --teacher-primary-end: #50E3C2;
+            --student-primary-start: #E94E77;
+            --student-primary-end: #F9A825;
+            --dark-bg: #121212;
+            --light-bg: #FDFDFD;
+            --card-bg: rgba(255, 255, 255, 0.6);
+            --text-dark: #222;
+            --text-light: #FAFAFA;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-color-teacher: rgba(74, 144, 226, 0.4);
+            --shadow-color-student: rgba(233, 78, 119, 0.4);
         }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         html {
             scroll-behavior: smooth;
         }
+
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
             margin: 0;
             line-height: 1.7;
             background-color: var(--light-bg);
             color: var(--text-dark);
-            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
         }
+
         .container {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
             padding: 0 25px;
         }
+
         h1, h2, h3 {
             margin-top: 0;
             line-height: 1.2;
+            font-weight: 700;
         }
+
         a {
             text-decoration: none;
         }
+
+        /* --- New Button Styles (Giữ nguyên) --- */
         .btn {
             display: inline-block;
-            padding: 12px 32px;
-            border-radius: 8px;
-            font-weight: 700;
-            transition: all 0.3s ease;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             border: none;
             cursor: pointer;
             font-size: 1rem;
-        }
-        .btn-teacher {
-            background-color: var(--teacher-primary);
-            color: #fff;
-        }
-        .btn-teacher:hover {
-            background-color: var(--teacher-primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(49, 130, 206, 0.3);
-        }
-        .btn-student {
-            background-color: var(--student-primary);
-            color: #fff;
-        }
-        .btn-student:hover {
-            background-color: var(--student-primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(213, 63, 140, 0.3);
+            color: var(--text-light);
+            background-size: 200% 200%;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
 
-        /* Header */
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: inherit;
+            filter: blur(10px);
+            z-index: -1;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 10px 25px var(--shadow-light);
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn-teacher {
+            background-image: linear-gradient(45deg, var(--teacher-primary-start), var(--teacher-primary-end), var(--teacher-primary-start));
+            animation: gradientAnimation 10s ease infinite;
+            box-shadow: 0 4px 15px var(--shadow-color-teacher);
+        }
+
+        .btn-student {
+            background-image: linear-gradient(45deg, var(--student-primary-start), var(--student-primary-end), var(--student-primary-start));
+            animation: gradientAnimation 10s ease infinite;
+            box-shadow: 0 4px 15px var(--shadow-color-student);
+        }
+
+        /* --- Header (Giữ nguyên) --- */
         .main-header {
-            background: var(--card-bg);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 2px 10px var(--shadow-light);
             padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
         .main-header .container {
             display: flex;
@@ -95,77 +136,126 @@
         }
         .logo-image {
             height: 40px;
-            width: auto;
         }
         .main-header .logo span {
-            color: var(--teacher-primary);
+            background: linear-gradient(45deg, var(--teacher-primary-start), var(--teacher-primary-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .main-nav a {
-            margin-left: 25px;
+            margin-left: 30px;
             font-weight: 600;
             color: var(--text-dark);
-            transition: color 0.2s;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, var(--teacher-primary-start), var(--teacher-primary-end));
+            transition: width 0.3s ease-out;
         }
         .main-nav a:hover {
-            color: var(--teacher-primary);
+            color: var(--teacher-primary-start);
+        }
+        .main-nav a:hover::after {
+            width: 100%;
         }
 
-        /* Hero Section */
+        /* --- Hero Section (Giữ nguyên) --- */
         .hero {
-            background-color: var(--teacher-bg-light);
-            padding: 100px 0;
+            padding: 120px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
             color: var(--text-dark);
+            font-weight: 800;
         }
         .hero p {
             font-size: 1.25rem;
             max-width: 800px;
-            margin: 0 auto 30px auto;
-            color: #718096;
+            margin: 0 auto 40px auto;
+            color: #555;
         }
         .hero .download-buttons {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
         }
 
-        /* Platform Sections */
+        /* --- Platform Sections (Giữ nguyên) --- */
         .platform-section {
-            padding: 80px 0;
+            padding: 100px 0;
             overflow: hidden;
         }
-        .platform-section .section-header {
+        .section-header {
             text-align: center;
             max-width: 800px;
-            margin: 0 auto 60px auto;
+            margin: 0 auto 70px auto;
         }
         .platform-section h2 {
-            font-size: 2.8rem;
+            font-size: 3rem;
             margin-bottom: 15px;
+            font-weight: 800;
         }
         .platform-section .section-subtitle {
             font-size: 1.2rem;
-            color: #718096;
+            color: #555;
         }
         
+        #teacher-platform h2 { color: var(--teacher-primary-start); }
+        #student-platform h2 { color: var(--student-primary-start); }
+        #guides-section h2 { color: #333; }
+
+        /* === BẮT ĐẦU PHỤC HỒI CSS CŨ CHO TÍNH NĂNG === */
         .features-grid-5, .features-grid-4 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
         
+        .feature-card-old {
+            background: #FFFFFF;
+            padding: 35px;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .feature-card-old:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+        .feature-card-old .icon {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+        .feature-card-old h3 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+        .feature-card-old p {
+            color: #444;
+        }
+
         @media (min-width: 992px) {
             .features-grid-5 {
                 grid-template-columns: repeat(3, 1fr);
             }
-            .features-grid-5 .feature-card:nth-child(4) {
+            .features-grid-5 .feature-card-old:nth-child(4) {
                 grid-column: 1 / 2;
             }
-            .features-grid-5 .feature-card:nth-child(5) {
+            .features-grid-5 .feature-card-old:nth-child(5) {
                 grid-column: 2 / 4;
             }
             .features-grid-4 {
@@ -174,112 +264,80 @@
         }
         
         @media (min-width: 1200px) {
-             .features-grid-5 {
+                .features-grid-5 {
                 grid-template-columns: repeat(5, 1fr);
             }
-             .features-grid-5 .feature-card:nth-child(n) {
+                .features-grid-5 .feature-card-old:nth-child(n) {
                 grid-column: auto;
             }
         }
+        /* === KẾT THÚC PHỤC HỒI CSS CŨ === */
 
-        .feature-card {
+        /* --- Glassmorphism Card (Giữ lại cho mục Hướng dẫn) --- */
+         .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .guide-card {
             background: var(--card-bg);
-            padding: 35px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 var(--shadow-light);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
         }
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        .guide-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 40px 0 var(--shadow-light);
+            border-color: rgba(255, 255, 255, 0.5);
         }
-        .feature-card .icon {
-            font-size: 2.8rem;
+        .guide-card .icon {
+            font-size: 3rem;
             margin-bottom: 20px;
+            display: inline-block;
+            transition: transform 0.3s ease;
         }
-        .feature-card h3 {
-            font-size: 1.6rem;
+        .guide-card:hover .icon {
+            transform: scale(1.2) rotate(-10deg);
+        }
+        .guide-card h3 {
+            font-size: 1.7rem;
             margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .guide-card p {
+            color: #444;
         }
 
         .app-screenshot {
             display: block;
             max-width: 90%;
-            margin: 60px auto 0 auto;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease-in-out;
+            margin: 80px auto 0 auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px -10px var(--shadow-light);
+            transition: transform 0.5s ease-in-out;
         }
         .app-screenshot:hover {
-            transform: scale(1.01);
+            transform: scale(1.02) translateY(-5px);
         }
         
-        #teacher-platform { background-color: var(--card-bg); }
-        #teacher-platform h2 { color: var(--teacher-primary); }
-        #student-platform { background-color: var(--student-bg-light); }
-        #student-platform h2 { color: var(--student-primary); }
-        
-        /* === CSS CHO MỤC HƯỚNG DẪN BẮT ĐẦU === */
-        #guides-section {
-            background-color: var(--card-bg);
-        }
-        .guide-options {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-        .guide-card {
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 12px;
-            width: 320px;
-            text-align: center;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .guide-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-        }
-        .guide-card .icon {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-        }
-        .guide-card h3 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-        .guide-card.teacher-card h3 {
-            color: var(--teacher-primary);
-        }
-        .guide-card.student-card h3 {
-            color: var(--student-primary);
-        }
-        .guide-card p {
-            color: #718096;
-            margin-bottom: 30px;
-            min-height: 50px;
-            flex-grow: 1;
-        }
-        /* === CSS CHO MỤC HƯỚNG DẪN KẾT THÚC === */
-
-        /* Download Section */
+        /* --- Download Section (Giữ nguyên) --- */
         .download-section {
-            padding: 80px 0;
+            padding: 100px 0;
             text-align: center;
             background: var(--dark-bg);
+            color: var(--text-light);
             overflow: hidden;
+            position: relative;
         }
         .download-section h2 {
-            font-size: 2.8rem;
-            margin-bottom: 50px;
-            color: #fff;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            font-weight: 800;
         }
         .download-options {
             display: flex;
@@ -288,87 +346,57 @@
             flex-wrap: wrap;
         }
         .download-card {
-            background: #2D3748;
+            background: rgba(45, 55, 72, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 40px;
-            border-radius: 12px;
-            width: 320px;
+            border-radius: 20px;
+            width: 350px;
             text-align: center;
-            border: 1px solid #4A5568;
+            border: 1px solid var(--border-color);
             transition: all 0.3s ease;
         }
         .download-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transform: translateY(-8px);
+            background: rgba(74, 85, 104, 0.9);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
         }
         .download-card .icon { font-size: 3.5rem; margin-bottom: 20px; }
-        .download-card h3 { font-size: 2rem; margin-bottom: 10px; color: #fff; }
+        .download-card h3 { font-size: 2.2rem; margin-bottom: 15px; }
         .download-card p { color: #A0AEC0; margin-bottom: 30px; min-height: 50px; }
         
-        /* Footer */
+        /* --- Footer (Giữ nguyên) --- */
         .main-footer {
             background: #171923;
             color: var(--text-light);
             text-align: center;
-            padding: 25px 0;
+            padding: 30px 0;
         }
 
-        /* Animations */
+        /* --- Animations (Giữ nguyên) --- */
         .animated-section {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
         .animated-section.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
-        .fade-in-image {
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 1s ease-out, transform 1s ease-out;
-        }
-        .fade-in-image.is-visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* Responsive */
+        
+        /* --- Responsive (Giữ nguyên) --- */
         @media(max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
+            .hero h1 { font-size: 2.8rem; }
             .hero p { font-size: 1.1rem; }
-            .platform-section { padding: 60px 0; }
             .platform-section h2, .download-section h2 { font-size: 2.2rem; }
-
-            .main-header { padding: 0.5rem 0; }
             .main-header .container { flex-direction: column; gap: 15px; }
-            .main-header .logo { font-size: 1.5rem; }
-            .logo-image { height: 35px; }
-            .main-nav {
-                width: 100%;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                border-top: 1px solid var(--border-color);
-                padding-top: 10px;
-            }
-            .main-nav a { 
-                margin: 5px 8px;
-                font-size: 0.9rem;
-            }
-
-            .hero .download-buttons { 
-                flex-direction: column; 
-                gap: 15px;
-                padding: 0 15px;
-            }
-            .btn { 
-                width: 100%; 
-                box-sizing: border-box;
-            }
+            .main-nav a { margin: 0 10px; }
+            .hero .download-buttons { flex-direction: column; gap: 15px; }
         }
     </style>
 </head>
 <body>
+
     <header class="main-header">
         <div class="container">
             <a href="#" class="logo">
@@ -387,8 +415,8 @@
     <main>
         <section class="hero animated-section">
             <div class="container">
-                <h1>Kiến tạo Tương lai Giáo dục bằng AI</h1>
-                <p>Bộ đôi ứng dụng TeamEdu ra đời nhằm kiến tạo một vòng tròn giáo dục khép kín, nơi công nghệ AI tiên tiến giúp tối ưu hóa quá trình chuẩn bị của người dạy và tối đa hóa hiệu quả học tập của người học.</p>
+                <h1>Kiến Tạo Tương Lai Giáo Dục</h1>
+                <p>Bộ đôi ứng dụng TeamEdu sử dụng sức mạnh AI, kiến tạo một vòng tròn giáo dục khép kín, tối ưu hóa quá trình giảng dạy và tối đa hóa hiệu quả học tập.</p>
                 <div class="download-buttons">
                     <a href="#download" class="btn btn-teacher">Tải Bản Cho Giáo Viên</a>
                     <a href="#download" class="btn btn-student">Tải Bản Cho Học Sinh</a>
@@ -399,90 +427,90 @@
         <section id="teacher-platform" class="platform-section animated-section">
             <div class="container">
                 <div class="section-header">
-                    <h2>Nền tảng Cho Giáo viên</h2>
-                    <p class="section-subtitle">Giảm tải công việc hành chính, tự động hóa việc soạn thảo giáo án và đề thi phức tạp, giúp thầy cô tập trung vào chuyên môn giảng dạy.</p>
+                    <h2>Công Cụ Toàn Diện Cho Giáo Viên</h2>
+                    <p class="section-subtitle">Tự động hóa công việc, giải phóng thời gian để thầy cô tập trung vào điều quan trọng nhất: truyền cảm hứng và tri thức.</p>
                 </div>
                 <div class="features-grid-5">
-                    <div class="feature-card">
+                    <div class="feature-card-old">
                         <div class="icon">📑</div>
                         <h3>Soạn Giáo án AI</h3>
                         <p>Sử dụng hình ảnh sách giáo khoa để AI tự động tạo giáo án theo chuẩn quy định, giúp tiết kiệm thời gian soạn bài.</p>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card-old">
                         <div class="icon">✍️</div>
-                        <h3>Tạo Đề thi Thông minh</h3>
+                        <h3>Tạo Đề Thi Thông Minh</h3>
                         <p>AI có thể tạo ra một đề thi hoàn chỉnh chỉ trong vài phút, dựa trên các lựa chọn về môn học và khối lớp của giáo viên.</p>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card-old">
                         <div class="icon">📚</div>
                         <h3>Kho Học Liệu & Thuyết Trình</h3>
                         <p>Truy cập thư viện bài giảng PowerPoint phong phú, được sắp xếp theo từng chủ đề để phục vụ công tác giảng dạy.</p>
                     </div>
-                    <div class="feature-card">
+                     <div class="feature-card-old">
                         <div class="icon">🔬</div>
                         <h3>Mô phỏng Khoa học</h3>
                         <p>Cung cấp các mô phỏng Hóa học và Vật lý tương tác, giúp bài giảng trở nên trực quan và sinh động hơn.</p>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card-old">
                         <div class="icon">🔍</div>
                         <h3>Tìm kiếm AI Nâng cao</h3>
                         <p>Tích hợp AI vào công cụ tìm kiếm, hỗ trợ sửa lỗi văn bản, tra cứu thông tin và đánh giá các ý tưởng giảng dạy.</p>
                     </div>
                 </div>
-                <img src="Image 1.png" alt="Giao diện TeamEdu For Teacher" class="app-screenshot fade-in-image">
+                <img src="Image 1.png" alt="Giao diện TeamEdu For Teacher" class="app-screenshot">
             </div>
         </section>
         
         <section id="student-platform" class="platform-section animated-section">
             <div class="container">
                 <div class="section-header">
-                    <h2>Nền tảng Cho Học sinh</h2>
-                    <p class="section-subtitle">Cung cấp một môi trường học tập số hiện đại, tập trung và hiệu quả, giúp học sinh chủ động củng cố kiến thức và bứt phá trong học tập.</p>
+                    <h2>Người Bạn Đồng Hành Cùng Học Sinh</h2>
+                    <p class="section-subtitle">Một môi trường học tập số hiện đại, tập trung và hiệu quả, giúp học sinh chủ động củng cố kiến thức và bứt phá.</p>
                 </div>
-                <div class="features-grid-4">
-                    <div class="feature-card">
+                 <div class="features-grid-4">
+                    <div class="feature-card-old">
                         <div class="icon">🎯</div>
-                        <h3>Edu Mode - Chống Xao nhãng</h3>
+                        <h3>Edu Mode - Chống Xao Lãng</h3>
                         <p>Giải pháp công nghệ mới giúp giải quyết vấn đề mất tập trung bằng cách tạo ra một môi trường học tập chuyên sâu, không bị làm phiền.</p>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card-old">
                         <div class="icon">📈</div>
                         <h3>Ôn luyện & Luyện đề AI</h3>
                         <p>Trải nghiệm "Thử thách 5 phút" và các đề thi 60 phút do AI tạo ra, đi kèm tính năng chấm điểm nhanh giúp bạn biết được điểm mạnh, yếu của mình.</p>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card-old">
                         <div class="icon">📚</div>
                         <h3>Thư viện & Công cụ</h3>
                         <p>Truy cập thư viện bài thuyết trình mẫu và sử dụng công cụ tìm kiếm thông minh để tra cứu các khái niệm cần thiết cho việc học.</p>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card-old">
                         <div class="icon">💡</div>
                         <h3>Dễ dàng Sử dụng</h3>
                         <p>Giao diện thân thiện, không cần các câu lệnh phức tạp, giúp học sinh dễ dàng tiếp cận và sử dụng tất cả các tính năng mạnh mẽ của ứng dụng.</p>
                     </div>
                 </div>
-                <img src="Image 2.png" alt="Giao diện TeamEdu For Student" class="app-screenshot fade-in-image">
+                 <img src="Image 2.png" alt="Giao diện TeamEdu For Student" class="app-screenshot">
             </div>
         </section>
-
+        
         <section id="guides-section" class="platform-section animated-section">
             <div class="container">
                 <div class="section-header">
-                    <h2>Hướng dẫn sử dụng</h2>
+                    <h2>Hướng Dẫn Sử Dụng</h2>
                     <p class="section-subtitle">Tài liệu chi tiết giúp bạn làm chủ mọi tính năng mạnh mẽ của bộ đôi ứng dụng TeamEdu.</p>
                 </div>
-                <div class="guide-options">
-                    <div class="guide-card teacher-card">
+                <div class="guide-grid">
+                     <div class="guide-card">
                         <div class="icon">👩‍🏫</div>
-                        <h3>Hướng dẫn cho Giáo viên</h3>
+                        <h3>Dành cho Giáo viên</h3>
                         <p>Khám phá cách soạn giáo án, tạo đề thi bằng AI và tận dụng kho học liệu phong phú.</p>
-                        <a href="hdsd_FT.pdf" target="_blank" class="btn btn-teacher">Xem Hướng dẫn</a>
+                        <a href="hdsd_FT.pdf" target="_blank" class="btn btn-teacher" style="margin-top: 20px;">Xem Hướng Dẫn</a>
                     </div>
-                    <div class="guide-card student-card">
+                    <div class="guide-card">
                         <div class="icon">🎓</div>
-                        <h3>Hướng dẫn cho Học sinh</h3>
-                        <p>Tìm hiểu về chế độ học tập trung, các phương pháp ôn luyện và công cụ học tập hiệu quả.</p>
-                        <a href="hdsd_FS.pdf" target="_blank" class="btn btn-student">Xem Hướng dẫn</a>
+                        <h3>Dành cho Học sinh</h3>
+                        <p>Tìm hiểu chế độ học tập trung, các phương pháp ôn luyện và công cụ học tập hiệu quả.</p>
+                        <a href="hdsd_FS.pdf" target="_blank" class="btn btn-student" style="margin-top: 20px;">Xem Hướng Dẫn</a>
                     </div>
                 </div>
             </div>
@@ -490,19 +518,19 @@
 
         <section id="download" class="download-section animated-section">
             <div class="container">
-                <h2>Bắt đầu Hành trình Dạy và Học Hiệu quả</h2>
+                <h2>Bắt Đầu Hành Trình Dạy Và Học Hiệu Quả</h2>
                 <div class="download-options">
                     <div class="download-card">
                         <div class="icon">👩‍🏫</div>
                         <h3>TeamEdu For Teacher</h3>
                         <p>Dành cho Giáo viên muốn tối ưu hóa thời gian soạn bài và nâng cao chất lượng giảng dạy.</p>
-                       <a href="https://1drv.ms/u/c/95b37184981491e8/EbXVHvEUumJBkL7J7DA3MfgBH8Nsxvbogk-h3TwjIMXsFw?e=j8XEjT" class="btn btn-teacher">Tải về cho Windows</a>
+                       <a href="https://1drv.ms/u/c/95b37184981491e8/EbXVHvEUumJBkL7J7DA3MfgBH8Nsxvbogk-h3TwjIMXsFw?e=j8XEjT" class="btn btn-teacher">Tải cho Windows</a>
                     </div>
                     <div class="download-card">
                         <div class="icon">🎓</div>
                         <h3>TeamEdu For Student</h3>
                         <p>Dành cho Học sinh muốn có một công cụ học tập tập trung, thông minh và hiệu quả.</p>
-                        <a href="https://1drv.ms/u/c/95b37184981491e8/ERtzgORYeJFGi8QYwhNFqmgBrIgRdpUEcm9DTco5rp-z5w" class="btn btn-student">Tải về cho Windows</a>
+                        <a href="https://1drv.ms/u/c/95b37184981491e8/ERtzgORYeJFGi8QYwhNFqmgBrIgRdpUEcm9DTco5rp-z5w" class="btn btn-student">Tải cho Windows</a>
                     </div>
                 </div>
             </div>
@@ -516,30 +544,22 @@
     </footer>
 
     <script>
-        // JavaScript for scroll animations
         document.addEventListener('DOMContentLoaded', () => {
-            const animatedElements = document.querySelectorAll('.animated-section, .fade-in-image');
+            const animatedElements = document.querySelectorAll('.animated-section');
 
-            const observerOptions = {
-                root: null, // viewport
-                rootMargin: '0px',
-                threshold: 0.1 // Kích hoạt khi 10% của phần tử hiển thị
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
+            const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target); // Ngừng quan sát sau khi đã hiển thị
+                        observer.unobserve(entry.target);
                     }
                 });
-            }, observerOptions);
+            }, { threshold: 0.1 });
 
             animatedElements.forEach(element => {
                 observer.observe(element);
             });
         });
     </script>
-
 </body>
 </html>
