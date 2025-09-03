@@ -219,6 +219,55 @@
         #teacher-platform h2 { color: var(--teacher-primary); }
         #student-platform { background-color: var(--student-bg-light); }
         #student-platform h2 { color: var(--student-primary); }
+        
+        /* === CSS CHO MỤC HƯỚNG DẪN BẮT ĐẦU === */
+        #guides-section {
+            background-color: var(--card-bg);
+        }
+        .guide-options {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .guide-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            width: 320px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .guide-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+        .guide-card .icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        .guide-card h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .guide-card.teacher-card h3 {
+            color: var(--teacher-primary);
+        }
+        .guide-card.student-card h3 {
+            color: var(--student-primary);
+        }
+        .guide-card p {
+            color: #718096;
+            margin-bottom: 30px;
+            min-height: 50px;
+            flex-grow: 1;
+        }
+        /* === CSS CHO MỤC HƯỚNG DẪN KẾT THÚC === */
 
         /* Download Section */
         .download-section {
@@ -283,55 +332,43 @@
             transform: scale(1);
         }
 
-        /* === KHỐI CSS RESPONSIVE ĐÃ SỬA LỖI === */
+        /* Responsive */
         @media(max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             .hero p { font-size: 1.1rem; }
             .platform-section { padding: 60px 0; }
             .platform-section h2, .download-section h2 { font-size: 2.2rem; }
 
-            /* Fix cho Header trên Mobile */
-            .main-header {
-                padding: 0.5rem 0; /* Giảm padding của header */
-            }
-            .main-header .container { 
-                flex-direction: column; /* Sắp xếp logo và nav theo chiều dọc */
-                gap: 15px; /* Khoảng cách giữa logo và nav */
-            }
-            .main-header .logo {
-                font-size: 1.5rem; /* Thu nhỏ chữ logo */
-            }
-            .logo-image {
-                height: 35px; /* Thu nhỏ icon logo */
-            }
+            .main-header { padding: 0.5rem 0; }
+            .main-header .container { flex-direction: column; gap: 15px; }
+            .main-header .logo { font-size: 1.5rem; }
+            .logo-image { height: 35px; }
             .main-nav {
                 width: 100%;
                 display: flex;
-                flex-wrap: wrap; /* Cho phép các link xuống dòng */
-                justify-content: center; /* Căn giữa các link */
-                border-top: 1px solid var(--border-color); /* Thêm đường kẻ phân cách */
+                flex-wrap: wrap;
+                justify-content: center;
+                border-top: 1px solid var(--border-color);
                 padding-top: 10px;
             }
             .main-nav a { 
-                margin: 5px 8px; /* Giảm khoảng cách giữa các link */
+                margin: 5px 8px;
                 font-size: 0.9rem;
             }
 
-            /* Fix cho các nút bấm */
             .hero .download-buttons { 
                 flex-direction: column; 
                 gap: 15px;
-                padding: 0 15px; /* Thêm padding để nút không bị sát lề */
+                padding: 0 15px;
             }
             .btn { 
                 width: 100%; 
-                box-sizing: border-box; /* Đảm bảo padding không làm tăng width */
+                box-sizing: border-box;
             }
         }
     </style>
 </head>
 <body>
-
     <header class="main-header">
         <div class="container">
             <a href="#" class="logo">
@@ -341,6 +378,7 @@
             <nav class="main-nav">
                 <a href="#teacher-platform">Dành cho Giáo viên</a>
                 <a href="#student-platform">Dành cho Học sinh</a>
+                <a href="#guides-section">Hướng dẫn</a>
                 <a href="#download">Tải về</a>
             </nav>
         </div>
@@ -424,6 +462,29 @@
                     </div>
                 </div>
                 <img src="Image 2.png" alt="Giao diện TeamEdu For Student" class="app-screenshot fade-in-image">
+            </div>
+        </section>
+
+        <section id="guides-section" class="platform-section animated-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Hướng dẫn sử dụng</h2>
+                    <p class="section-subtitle">Tài liệu chi tiết giúp bạn làm chủ mọi tính năng mạnh mẽ của bộ đôi ứng dụng TeamEdu.</p>
+                </div>
+                <div class="guide-options">
+                    <div class="guide-card teacher-card">
+                        <div class="icon">👩‍🏫</div>
+                        <h3>Hướng dẫn cho Giáo viên</h3>
+                        <p>Khám phá cách soạn giáo án, tạo đề thi bằng AI và tận dụng kho học liệu phong phú.</p>
+                        <a href="hdsd_FT.pdf" target="_blank" class="btn btn-teacher">Xem Hướng dẫn</a>
+                    </div>
+                    <div class="guide-card student-card">
+                        <div class="icon">🎓</div>
+                        <h3>Hướng dẫn cho Học sinh</h3>
+                        <p>Tìm hiểu về chế độ học tập trung, các phương pháp ôn luyện và công cụ học tập hiệu quả.</p>
+                        <a href="hdsd_FS.pdf" target="_blank" class="btn btn-student">Xem Hướng dẫn</a>
+                    </div>
+                </div>
             </div>
         </section>
 
