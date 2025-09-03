@@ -85,22 +85,18 @@
             justify-content: space-between;
             align-items: center;
         }
-        
-        /* === THAY ĐỔI CSS CHO LOGO BẮT ĐẦU === */
         .main-header .logo {
             font-size: 1.8rem;
             font-weight: 800;
             color: var(--text-dark);
-            display: flex; /* Căn chỉnh logo và chữ */
-            align-items: center; /* Căn giữa theo chiều dọc */
-            gap: 10px; /* Khoảng cách giữa logo và chữ */
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         .logo-image {
-            height: 40px; /* Điều chỉnh chiều cao logo */
+            height: 40px;
             width: auto;
         }
-        /* === THAY ĐỔI CSS CHO LOGO KẾT THÚC === */
-        
         .main-header .logo span {
             color: var(--teacher-primary);
         }
@@ -140,7 +136,7 @@
         /* Platform Sections */
         .platform-section {
             padding: 80px 0;
-            overflow: hidden; /* For animation */
+            overflow: hidden;
         }
         .platform-section .section-header {
             text-align: center;
@@ -267,7 +263,7 @@
             padding: 25px 0;
         }
 
-        /* Animations (Original) */
+        /* Animations */
         .animated-section {
             opacity: 0;
             transform: translateY(20px);
@@ -287,15 +283,50 @@
             transform: scale(1);
         }
 
-        /* Responsive */
+        /* === KHỐI CSS RESPONSIVE ĐÃ SỬA LỖI === */
         @media(max-width: 768px) {
-            .hero h1 { font-size: 2.8rem; }
+            .hero h1 { font-size: 2.5rem; }
             .hero p { font-size: 1.1rem; }
+            .platform-section { padding: 60px 0; }
             .platform-section h2, .download-section h2 { font-size: 2.2rem; }
-            .main-header .container { flex-direction: column; gap: 15px; }
-            .main-nav a { margin: 0 10px; }
-            .hero .download-buttons { flex-direction: column; gap: 10px; }
-            .btn { width: 100%; }
+
+            /* Fix cho Header trên Mobile */
+            .main-header {
+                padding: 0.5rem 0; /* Giảm padding của header */
+            }
+            .main-header .container { 
+                flex-direction: column; /* Sắp xếp logo và nav theo chiều dọc */
+                gap: 15px; /* Khoảng cách giữa logo và nav */
+            }
+            .main-header .logo {
+                font-size: 1.5rem; /* Thu nhỏ chữ logo */
+            }
+            .logo-image {
+                height: 35px; /* Thu nhỏ icon logo */
+            }
+            .main-nav {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap; /* Cho phép các link xuống dòng */
+                justify-content: center; /* Căn giữa các link */
+                border-top: 1px solid var(--border-color); /* Thêm đường kẻ phân cách */
+                padding-top: 10px;
+            }
+            .main-nav a { 
+                margin: 5px 8px; /* Giảm khoảng cách giữa các link */
+                font-size: 0.9rem;
+            }
+
+            /* Fix cho các nút bấm */
+            .hero .download-buttons { 
+                flex-direction: column; 
+                gap: 15px;
+                padding: 0 15px; /* Thêm padding để nút không bị sát lề */
+            }
+            .btn { 
+                width: 100%; 
+                box-sizing: border-box; /* Đảm bảo padding không làm tăng width */
+            }
         }
     </style>
 </head>
