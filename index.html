@@ -85,11 +85,22 @@
             justify-content: space-between;
             align-items: center;
         }
+        
+        /* === THAY ĐỔI CSS CHO LOGO BẮT ĐẦU === */
         .main-header .logo {
             font-size: 1.8rem;
             font-weight: 800;
             color: var(--text-dark);
+            display: flex; /* Căn chỉnh logo và chữ */
+            align-items: center; /* Căn giữa theo chiều dọc */
+            gap: 10px; /* Khoảng cách giữa logo và chữ */
         }
+        .logo-image {
+            height: 40px; /* Điều chỉnh chiều cao logo */
+            width: auto;
+        }
+        /* === THAY ĐỔI CSS CHO LOGO KẾT THÚC === */
+        
         .main-header .logo span {
             color: var(--teacher-primary);
         }
@@ -151,7 +162,6 @@
             gap: 30px;
         }
         
-        /* === THAY ĐỔI BẮT ĐẦU === */
         @media (min-width: 992px) {
             .features-grid-5 {
                 grid-template-columns: repeat(3, 1fr);
@@ -162,7 +172,6 @@
             .features-grid-5 .feature-card:nth-child(5) {
                 grid-column: 2 / 4;
             }
-            /* Chuyển quy tắc 4 cột vào đây để áp dụng sớm hơn */
             .features-grid-4 {
                 grid-template-columns: repeat(4, 1fr);
             }
@@ -175,9 +184,7 @@
              .features-grid-5 .feature-card:nth-child(n) {
                 grid-column: auto;
             }
-            /* Quy tắc 4 cột đã được chuyển đi */
         }
-        /* === THAY ĐỔI KẾT THÚC === */
 
         .feature-card {
             background: var(--card-bg);
@@ -296,7 +303,10 @@
 
     <header class="main-header">
         <div class="container">
-            <a href="#" class="logo">TEAM<span>EDU</span></a>
+            <a href="#" class="logo">
+                <img src="dolphin_logo.png" alt="TeamEdu Logo" class="logo-image">
+                TEAM<span>EDU</span>
+            </a>
             <nav class="main-nav">
                 <a href="#teacher-platform">Dành cho Giáo viên</a>
                 <a href="#student-platform">Dành cho Học sinh</a>
