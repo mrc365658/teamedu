@@ -1,143 +1,737 @@
+
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gửi Đỗ Linh 20/10 ❤️</title>
+    <title>Team Edu - Kiến Tạo Tương Lai Giáo Dục</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* --- PHẦN STYLE GIAO DIỆN --- */
-        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap');
+        :root {
+            --teacher-primary-start: #4A90E2;
+            --teacher-primary-end: #50E3C2;
+            --student-primary-start: #E94E77;
+            --student-primary-end: #F9A825;
+            --dark-bg: #121212;
+            --light-bg: #FDFDFD;
+            --card-bg: rgba(255, 255, 255, 0.6);
+            --text-dark: #222;
+            --text-light: #FAFAFA;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-color-teacher: rgba(74, 144, 226, 0.4);
+            --shadow-color-student: rgba(233, 78, 119, 0.4);
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
-            height: 100vh;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
             margin: 0;
-            background: linear-gradient(135deg, #f3e7e9, #e3eeff); /* Nền màu pastel nhẹ nhàng */
-            overflow: hidden; /* Ngăn cuộn trang khi thư di chuyển */
-            font-family: 'Quicksand', sans-serif;
+            line-height: 1.7;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
         }
 
-        /* --- BỨC THƯ "CHẠY TRỐN" --- */
-        .letter-chase-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); /* Căn giữa ban đầu */
-            width: 200px;
-            padding: 25px 0;
-            background-color: #ff8fab; /* Màu hồng xinh xắn */
-            color: white;
-            text-align: center;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            font-size: 1.2em;
-            font-weight: bold;
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        h1, h2, h3 {
+            margin-top: 0;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* --- New Button Styles (Giữ nguyên) --- */
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: none;
             cursor: pointer;
-            user-select: none; /* Ngăn người dùng bôi đen chữ */
-            
-            /* Hiệu ứng chuyển động mượt mà */
-            transition: top 0.4s ease-in-out, left 0.4s ease-in-out;
+            font-size: 1rem;
+            color: var(--text-light);
+            background-size: 200% 200%;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
 
-        /* --- BỨC THƯ CUỐI CÙNG --- */
-        .letter-final-container {
-            /* Ẩn đi lúc đầu và chuẩn bị cho hiệu ứng xuất hiện */
-            opacity: 0;
-            visibility: hidden;
-            transform: scale(0.9);
-            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-            
-            /* Giao diện */
+        .btn::before {
+            content: '';
             position: absolute;
-            top: 50%;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: inherit;
+            filter: blur(10px);
+            z-index: -1;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 10px 25px var(--shadow-light);
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn-teacher {
+            background-image: linear-gradient(45deg, var(--teacher-primary-start), var(--teacher-primary-end), var(--teacher-primary-start));
+            animation: gradientAnimation 10s ease infinite;
+            box-shadow: 0 4px 15px var(--shadow-color-teacher);
+        }
+
+        .btn-student {
+            background-image: linear-gradient(45deg, var(--student-primary-start), var(--student-primary-end), var(--student-primary-start));
+            animation: gradientAnimation 10s ease infinite;
+            box-shadow: 0 4px 15px var(--shadow-color-student);
+        }
+
+        /* --- Header (Giữ nguyên) --- */
+        .main-header {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 2px 10px var(--shadow-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .main-header .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-image {
+            height: 40px;
+        }
+        .main-header .logo span {
+            background: linear-gradient(45deg, var(--teacher-primary-start), var(--teacher-primary-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .main-nav a {
+            margin-left: 30px;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, var(--teacher-primary-start), var(--teacher-primary-end));
+            transition: width 0.3s ease-out;
+        }
+        .main-nav a:hover {
+            color: var(--teacher-primary-start);
+        }
+        .main-nav a:hover::after {
+            width: 100%;
+        }
+
+        /* --- Hero Section (Giữ nguyên) --- */
+        .hero {
+            padding: 120px 0;
             text-align: center;
-            background: rgba(255, 255, 255, 0.98);
-            padding: 30px 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            max-width: 90%;
-            width: 550px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            font-weight: 800;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            color: #555;
+        }
+        .hero .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        /* --- Platform Sections (Giữ nguyên) --- */
+        .platform-section {
+            padding: 100px 0;
+            overflow: hidden;
+        }
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 70px auto;
+        }
+        .platform-section h2 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        .platform-section .section-subtitle {
+            font-size: 1.2rem;
+            color: #555;
         }
         
-        /* Lớp 'visible' sẽ được thêm bằng JavaScript để hiện thư lên */
-        .letter-final-container.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translate(-50%, -50%) scale(1);
-        }
+        #teacher-platform h2 { color: var(--teacher-primary-start); }
+        #student-platform h2 { color: var(--student-primary-start); }
+        #guides-section h2 { color: #333; }
+        #about-us h2 { color: #6a11cb; } /* Màu mới cho mục Về Chúng Tôi */
+        #contact h2 { color: #2575fc; } /* Màu mới cho mục Liên Hệ */
 
-        .letter-final-container h1 {
-            color: #d63384;
-            font-size: 2.2em;
+        /* === BẮT ĐẦU PHỤC HỒI CSS CŨ CHO TÍNH NĂNG === */
+        .features-grid-5, .features-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card-old {
+            background: #FFFFFF;
+            padding: 35px;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .feature-card-old:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+        .feature-card-old .icon {
+            font-size: 2.8rem;
             margin-bottom: 20px;
         }
-
-        .letter-final-container p {
-            font-size: 1.15em;
-            line-height: 1.8;
-            color: #333;
+        .feature-card-old h3 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+        .feature-card-old p {
+            color: #444;
         }
 
-        .signature {
-            text-align: right;
-            margin-top: 30px;
-            font-style: italic;
+        @media (min-width: 992px) {
+            .features-grid-5 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .features-grid-5 .feature-card-old:nth-child(4) {
+                grid-column: 1 / 2;
+            }
+            .features-grid-5 .feature-card-old:nth-child(5) {
+                grid-column: 2 / 4;
+            }
+            .features-grid-4 {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        @media (min-width: 1200px) {
+                .features-grid-5 {
+                grid-template-columns: repeat(5, 1fr);
+            }
+                .features-grid-5 .feature-card-old:nth-child(n) {
+                grid-column: auto;
+            }
+        }
+        /* === KẾT THÚC PHỤC HỒI CSS CŨ === */
+
+        /* --- Glassmorphism Card (Giữ lại cho mục Hướng dẫn) --- */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .guide-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 var(--shadow-light);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+        }
+        .guide-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 40px 0 var(--shadow-light);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        .guide-card .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        .guide-card:hover .icon {
+            transform: scale(1.2) rotate(-10deg);
+        }
+        .guide-card h3 {
+            font-size: 1.7rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .guide-card p {
+            color: #444;
+        }
+
+        .app-screenshot {
+            display: block;
+            max-width: 90%;
+            margin: 80px auto 0 auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px -10px var(--shadow-light);
+            transition: transform 0.5s ease-in-out;
+        }
+        .app-screenshot:hover {
+            transform: scale(1.02) translateY(-5px);
+        }
+        
+        /* --- Download Section (Giữ nguyên) --- */
+        .download-section {
+            padding: 100px 0;
+            text-align: center;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow: hidden;
+            position: relative;
+        }
+        .download-section h2 {
+            font-size: 3rem;
+            margin-bottom: 60px;
+            font-weight: 800;
+        }
+        .download-options {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .download-card {
+            background: rgba(45, 55, 72, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            width: 350px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        .download-card:hover {
+            transform: translateY(-8px);
+            background: rgba(74, 85, 104, 0.9);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+        .download-card .icon { font-size: 3.5rem; margin-bottom: 20px; }
+        .download-card h3 { font-size: 2.2rem; margin-bottom: 15px; }
+        .download-card p { color: #A0AEC0; margin-bottom: 30px; min-height: 50px; }
+
+        /* --- BẮT ĐẦU CSS CHO PHẦN MỚI --- */
+        /* --- About Us Section --- */
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .about-description {
+            font-size: 1.15rem;
             color: #555;
+            margin-bottom: 50px;
+        }
+        .creators {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .creator-card {
+            background: #fff;
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            min-width: 250px;
+            transition: all 0.3s ease;
+        }
+        .creator-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+        .creator-card h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+        }
+        .creator-card p {
+            margin: 0;
+            color: var(--teacher-primary-start);
+            font-weight: 600;
+        }
+
+        /* --- CSS MỚI CHO LOGO FACEBOOK --- */
+        .social-links {
+            margin-top: 15px;
+        }
+        .social-links a {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        .social-links a:hover {
+            transform: scale(1.15);
+        }
+        .social-links img {
+            width: 28px;
+            height: 28px;
+            vertical-align: middle;
+        }
+        /* --- KẾT THÚC CSS MỚI --- */
+
+        /* --- Contact Section --- */
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+        .contact-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 var(--shadow-light);
+            width: 300px;
+            transition: all 0.3s ease;
+        }
+        .contact-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px var(--shadow-light);
+        }
+        .contact-item .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .contact-item h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .contact-item p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        .contact-item p a {
+            color: var(--student-primary-start);
+            transition: color 0.3s ease;
+        }
+        .contact-item p a:hover {
+            color: #d83a65;
+            text-decoration: underline;
+        }
+        /* --- KẾT THÚC CSS CHO PHẦN MỚI --- */
+        
+        /* --- Footer (Giữ nguyên) --- */
+        .main-footer {
+            background: #171923;
+            color: var(--text-light);
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        /* --- Animations (Giữ nguyên) --- */
+        .animated-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* --- Responsive (Giữ nguyên) --- */
+        @media(max-width: 992px) {
+            .main-nav a { margin-left: 15px; }
+        }
+        @media(max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .hero p { font-size: 1.1rem; }
+            .platform-section h2, .download-section h2 { font-size: 2.2rem; }
+            .main-header .container { flex-direction: column; gap: 15px; }
+            .main-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .main-nav a { margin: 0 10px; }
+            .hero .download-buttons { flex-direction: column; gap: 15px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="letter-chase-container" id="chase-container">
-        💌 Mở thư!
-    </div>
+    <header class="main-header">
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="dolphin_logo.png" alt="TeamEdu Logo" class="logo-image">
+                TEAM<span>EDU</span>
+            </a>
+            <nav class="main-nav">
+                <a href="#about-us">Về TeamEdu</a>
+                <a href="#teacher-platform">Giáo Viên</a>
+                <a href="#student-platform">Học Sinh</a>
+                <a href="#guides-section">Hướng Dẫn</a>
+                <a href="#download">Tải Về</a>
+                <a href="#contact">Liên Hệ</a>
+            </nav>
+        </div>
+    </header>
 
-    <div class="letter-final-container" id="final-letter">
-        <h1>Chào sóc dễ thương nhá </h1>
-        <p>Khi cậu đọc được bức thư này tớ chỉ muốn nói với cậu </p>
-        <p>Nhân ngày 20/10, tớ chúc cậu ngày càng xinh đẹp hơn dù giờ đã xinh lắm rồi và cố gắng để đạt được mong ước của mình nhá </p>
-        <p class="signature">Gửi sóc dễ thương</Mr><br>
-        By MrC
+    <main>
+        <section class="hero animated-section">
+            <div class="container">
+                <h1>Kiến Tạo Tương Lai Giáo Dục</h1>
+                <p>Bộ đôi ứng dụng TeamEdu sử dụng sức mạnh AI, kiến tạo một vòng tròn giáo dục khép kín, tối ưu hóa quá trình giảng dạy và tối đa hóa hiệu quả học tập.</p>
+                <div class="download-buttons">
+                    <a href="#download" class="btn btn-teacher">Tải Bản Cho Giáo Viên</a>
+                    <a href="#download" class="btn btn-student">Tải Bản Cho Học Sinh</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="teacher-platform" class="platform-section animated-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Công Cụ Toàn Diện Cho Giáo Viên</h2>
+                    <p class="section-subtitle">Tự động hóa công việc, giải phóng thời gian để thầy cô tập trung vào điều quan trọng nhất: truyền cảm hứng và tri thức.</p>
+                </div>
+                <div class="features-grid-5">
+                    <div class="feature-card-old">
+                        <div class="icon">📑</div>
+                        <h3>Soạn Giáo án AI</h3>
+                        <p>Sử dụng hình ảnh sách giáo khoa để AI tự động tạo giáo án theo chuẩn quy định, giúp tiết kiệm thời gian soạn bài.</p>
+                    </div>
+                    <div class="feature-card-old">
+                        <div class="icon">✍️</div>
+                        <h3>Tạo Đề Thi Thông Minh</h3>
+                        <p>AI có thể tạo ra một đề thi hoàn chỉnh chỉ trong vài phút, dựa trên các lựa chọn về môn học và khối lớp của giáo viên.</p>
+                    </div>
+                    <div class="feature-card-old">
+                        <div class="icon">📚</div>
+                        <h3>Kho Học Liệu & Thuyết Trình</h3>
+                        <p>Truy cập thư viện bài giảng PowerPoint phong phú, được sắp xếp theo từng chủ đề để phục vụ công tác giảng dạy.</p>
+                    </div>
+                    <div class="feature-card-old">
+                        <div class="icon">🔬</div>
+                        <h3>Mô phỏng Khoa học</h3>
+                        <p>Cung cấp các mô phỏng Hóa học và Vật lý tương tác, giúp bài giảng trở nên trực quan và sinh động hơn.</p>
+                    </div>
+                    <div class="feature-card-old">
+                        <div class="icon">🔍</div>
+                        <h3>Tìm kiếm AI Nâng cao</h3>
+                        <p>Tích hợp AI vào công cụ tìm kiếm, hỗ trợ sửa lỗi văn bản, tra cứu thông tin và đánh giá các ý tưởng giảng dạy.</p>
+                    </div>
+                </div>
+                <img src="Image 1.png" alt="Giao diện TeamEdu For Teacher" class="app-screenshot">
+            </div>
+        </section>
         
-        </p>
-    </div>
+        <section id="student-platform" class="platform-section animated-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Người Bạn Đồng Hành Cùng Học Sinh</h2>
+                    <p class="section-subtitle">Một môi trường học tập số hiện đại, tập trung và hiệu quả, giúp học sinh chủ động củng cố kiến thức và bứt phá.</p>
+                </div>
+                <div class="features-grid-4">
+                    <div class="feature-card-old">
+                        <div class="icon">🎯</div>
+                        <h3>Edu Mode - Chống Xao Lãng</h3>
+                        <p>Giải pháp công nghệ mới giúp giải quyết vấn đề mất tập trung bằng cách tạo ra một môi trường học tập chuyên sâu, không bị làm phiền.</p>
+                    </div>
+                    <div class="feature-card-old">
+                        <div class="icon">📈</div>
+                        <h3>Ôn luyện & Luyện đề AI</h3>
+                        <p>Trải nghiệm "Thử thách 5 phút" và các đề thi 60 phút do AI tạo ra, đi kèm tính năng chấm điểm nhanh giúp bạn biết được điểm mạnh, yếu của mình.</p>
+                    </div>
+                    <div class="feature-card-old">
+                        <div class="icon">📚</div>
+                        <h3>Thư viện & Công cụ</h3>
+                        <p>Truy cập thư viện bài thuyết trình mẫu và sử dụng công cụ tìm kiếm thông minh để tra cứu các khái niệm cần thiết cho việc học.</p>
+                    </div>
+                    <div class="feature-card-old">
+                        <div class="icon">💡</div>
+                        <h3>Dễ dàng Sử dụng</h3>
+                        <p>Giao diện thân thiện, không cần các câu lệnh phức tạp, giúp học sinh dễ dàng tiếp cận và sử dụng tất cả các tính năng mạnh mẽ của ứng dụng.</p>
+                    </div>
+                </div>
+                <img src="Image 2.png" alt="Giao diện TeamEdu For Student" class="app-screenshot">
+            </div>
+        </section>
+        
+        <section id="guides-section" class="platform-section animated-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Hướng Dẫn Sử Dụng</h2>
+                    <p class="section-subtitle">Tài liệu chi tiết giúp bạn làm chủ mọi tính năng mạnh mẽ của bộ đôi ứng dụng TeamEdu.</p>
+                </div>
+                <div class="guide-grid">
+                    <div class="guide-card">
+                        <div class="icon">👩‍🏫</div>
+                        <h3>Dành cho Giáo viên</h3>
+                        <p>Khám phá cách soạn giáo án, tạo đề thi bằng AI và tận dụng kho học liệu phong phú.</p>
+                        <a href="hdsd_FT.pdf" target="_blank" class="btn btn-teacher" style="margin-top: 20px;">Xem Hướng Dẫn</a>
+                    </div>
+                    <div class="guide-card">
+                        <div class="icon">🎓</div>
+                        <h3>Dành cho Học sinh</h3>
+                        <p>Tìm hiểu chế độ học tập trung, các phương pháp ôn luyện và công cụ học tập hiệu quả.</p>
+                        <a href="hdsd_FS.pdf" target="_blank" class="btn btn-student" style="margin-top: 20px;">Xem Hướng Dẫn</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="download" class="download-section animated-section">
+            <div class="container">
+                <h2>Bắt Đầu Hành Trình Dạy Và Học Hiệu Quả</h2>
+                <div class="download-options">
+                    <div class="download-card">
+                        <div class="icon">👩‍🏫</div>
+                        <h3>TeamEdu For Teacher</h3>
+                        <p>Dành cho Giáo viên muốn tối ưu hóa thời gian soạn bài và nâng cao chất lượng giảng dạy.</p>
+                       <a href="https://1drv.ms/u/c/95b37184981491e8/EbXVHvEUumJBkL7J7DA3MfgBH8Nsxvbogk-h3TwjIMXsFw?e=j8XEjT" class="btn btn-teacher">Tải cho Windows</a>
+                    </div>
+                    <div class="download-card">
+                        <div class="icon">🎓</div>
+                        <h3>TeamEdu For Student</h3>
+                        <p>Dành cho Học sinh muốn có một công cụ học tập tập trung, thông minh và hiệu quả.</p>
+                        <a href="https://1drv.ms/u/c/95b37184981491e8/ERtzgORYeJFGi8QYwhNFqmgBrIgRdpUEcm9DTco5rp-z5w" class="btn btn-student">Tải cho Windows</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about-us" class="platform-section animated-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Câu Chuyện Về TeamEdu</h2>
+                    <p class="section-subtitle">Sản phẩm được tạo nên từ tâm huyết và nỗ lực của những nhà phát triển trẻ.</p>
+                </div>
+                <div class="about-content">
+                    <p class="about-description">
+                        <strong>TeamEdu</strong> là trọn bộ ứng dụng giáo dục được xây dựng với mục tiêu mang công nghệ AI đến gần hơn với lớp học, hỗ trợ đắc lực cho cả giáo viên và học sinh. Chúng tôi tin rằng công nghệ có thể giải phóng sức sáng tạo và tối ưu hóa con đường chinh phục tri thức cho thế hệ tương lai.
+                    </p>
+                    <div class="creators">
+                        <div class="creator-card">
+                            <h3>Nguyễn Quốc Cường</h3>
+                            <p>Người sáng lập & Phát triển</p>
+                            <div class="social-links">
+                                <a href="https://www.facebook.com/quoc.cuong.834982" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/2023_Facebook_icon.svg" alt="Facebook Profile">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="creator-card">
+                            <h3>Đỗ Minh Quân</h3>
+                            <p>Đồng sáng lập & Phát triển</p>
+                            <div class="social-links">
+                                <a href="https://www.facebook.com/Totodye.VN" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/2023_Facebook_icon.svg" alt="Facebook Profile">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="platform-section animated-section" style="background: rgba(255,255,255,0.2);">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Liên Hệ & Hỗ Trợ</h2>
+                    <p class="section-subtitle">Chúng tôi luôn sẵn sàng lắng nghe mọi thắc mắc và góp ý từ bạn.</p>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="icon">📞</div>
+                        <h3>Điện thoại</h3>
+                        <p><a href="tel:0867724915">0867 724 915</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon">✉️</div>
+                        <h3>Email</h3>
+                        <p><a href="mailto:cuongcong240811@gmail.com">cuongcong240811@gmail.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 Team Edu. All Rights Reserved.</p>
+        </div>
+    </footer>
 
     <script>
-        // --- PHẦN LOGIC ĐIỀU KHIỂN ---
-        window.onload = function() {
-            const chaseContainer = document.getElementById('chase-container');
-            const finalLetter = document.getElementById('final-letter');
-            
-            let clickCount = 0;
-            const maxMoves = 5; // Số lần thư sẽ "chạy" đi
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.animated-section');
 
-            chaseContainer.addEventListener('click', function() {
-                if (clickCount < maxMoves) {
-                    // Tăng biến đếm
-                    clickCount++;
-
-                    // Tính toán vị trí ngẫu nhiên mới trên màn hình
-                    // Trừ đi kích thước của chính nó để không bị tràn ra ngoài
-                    const newTop = Math.random() * (window.innerHeight - chaseContainer.offsetHeight);
-                    const newLeft = Math.random() * (window.innerWidth - chaseContainer.offsetWidth);
-
-                    // Cập nhật vị trí
-                    chaseContainer.style.top = `${newTop}px`;
-                    chaseContainer.style.left = `${newLeft}px`;
-
-                    // Đến lần cuối cùng, thay đổi nội dung để báo hiệu
-                    if (clickCount === maxMoves) {
-                        chaseContainer.innerText = 'Bắt được rồi! Mở đi! 😊';
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
                     }
-                } else {
-                    // Khi đã click đủ 5 lần, lần click tiếp theo sẽ mở thư
-                    chaseContainer.style.display = 'none'; // Ẩn thư "chạy trốn"
-                    finalLetter.classList.add('visible'); // Hiện thư cuối cùng
-                }
-            });
-        };
-    </script>
+                });
+            }, { threshold: 0.1 });
 
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
 </body>
 </html>
