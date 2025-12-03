@@ -1,736 +1,659 @@
-
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team Edu - Kiến Tạo Tương Lai Giáo Dục</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
     <style>
+        /* --- 1. CORE VARIABLES & RESET --- */
         :root {
-            --teacher-primary-start: #4A90E2;
-            --teacher-primary-end: #50E3C2;
-            --student-primary-start: #E94E77;
-            --student-primary-end: #F9A825;
-            --dark-bg: #121212;
-            --light-bg: #FDFDFD;
-            --card-bg: rgba(255, 255, 255, 0.6);
-            --text-dark: #222;
-            --text-light: #FAFAFA;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --shadow-light: rgba(0, 0, 0, 0.1);
-            --shadow-color-teacher: rgba(74, 144, 226, 0.4);
-            --shadow-color-student: rgba(233, 78, 119, 0.4);
+            /* Brand Colors */
+            --primary-blue: #3B82F6;
+            --primary-teal: #14B8A6;
+            --primary-pink: #EC4899;
+            --primary-orange: #F97316;
+            
+            /* --- NEW: SE Colors (Purple & Gold) --- */
+            --primary-purple: #8B5CF6;
+            --primary-gold: #F59E0B;
+            
+            /* Gradients */
+            --grad-teacher: linear-gradient(135deg, #3B82F6 0%, #14B8A6 100%);
+            --grad-student: linear-gradient(135deg, #EC4899 0%, #F97316 100%);
+            /* --- NEW: SE Gradient --- */
+            --grad-se: linear-gradient(135deg, #7C3AED 0%, #F59E0B 100%);
+
+            /* Neutrals */
+            --bg-body: #F8FAFC;
+            --bg-surface: #FFFFFF;
+            --text-main: #0F172A;
+            --text-sub: #64748B;
+            --border-light: #E2E8F0;
+
+            /* Effects */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --radius-lg: 24px;
         }
 
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html { scroll-behavior: smooth; }
+        
         body {
-            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-            margin: 0;
-            line-height: 1.7;
-            background-color: var(--light-bg);
-            color: var(--text-dark);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
             overflow-x: hidden;
-            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            background-image: radial-gradient(#E2E8F0 1px, transparent 1px);
+            background-size: 32px 32px;
         }
 
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* --- 2. UTILITIES --- */
         .container {
-            max-width: 1280px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 25px;
+            padding: 0 24px;
         }
 
-        h1, h2, h3 {
-            margin-top: 0;
-            line-height: 1.2;
-            font-weight: 700;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        /* --- New Button Styles (Giữ nguyên) --- */
-        .btn {
+        .section-padding { padding: 100px 0; }
+        
+        .badge {
             display: inline-block;
-            padding: 14px 35px;
+            padding: 6px 16px;
             border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            color: var(--text-light);
-            background-size: 200% 200%;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
         }
+        .badge-teacher { background: rgba(59, 130, 246, 0.1); color: var(--primary-blue); }
+        .badge-student { background: rgba(236, 72, 153, 0.1); color: var(--primary-pink); }
+        /* --- NEW: SE Badge --- */
+        .badge-se { background: rgba(139, 92, 246, 0.1); color: var(--primary-purple); border: 1px solid rgba(139, 92, 246, 0.2); }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            background: inherit;
-            filter: blur(10px);
-            z-index: -1;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 10px 25px var(--shadow-light);
-        }
-
-        .btn:hover::before {
-            opacity: 1;
-        }
-
-        .btn-teacher {
-            background-image: linear-gradient(45deg, var(--teacher-primary-start), var(--teacher-primary-end), var(--teacher-primary-start));
-            animation: gradientAnimation 10s ease infinite;
-            box-shadow: 0 4px 15px var(--shadow-color-teacher);
-        }
-
-        .btn-student {
-            background-image: linear-gradient(45deg, var(--student-primary-start), var(--student-primary-end), var(--student-primary-start));
-            animation: gradientAnimation 10s ease infinite;
-            box-shadow: 0 4px 15px var(--shadow-color-student);
-        }
-
-        /* --- Header (Giữ nguyên) --- */
-        .main-header {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 2px 10px var(--shadow-light);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .main-header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .main-header .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--text-dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .logo-image {
-            height: 40px;
-        }
-        .main-header .logo span {
-            background: linear-gradient(45deg, var(--teacher-primary-start), var(--teacher-primary-end));
+        .text-gradient-teacher {
+            background: var(--grad-teacher);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .main-nav a {
-            margin-left: 30px;
-            font-weight: 600;
-            color: var(--text-dark);
-            transition: color 0.3s ease;
-            position: relative;
-            padding-bottom: 5px;
+        .text-gradient-student {
+            background: var(--grad-student);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .main-nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(45deg, var(--teacher-primary-start), var(--teacher-primary-end));
-            transition: width 0.3s ease-out;
-        }
-        .main-nav a:hover {
-            color: var(--teacher-primary-start);
-        }
-        .main-nav a:hover::after {
-            width: 100%;
+        /* --- NEW: SE Text Gradient --- */
+        .text-gradient-se {
+            background: var(--grad-se);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* --- Hero Section (Giữ nguyên) --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-xl); }
+        .btn-teacher { background: var(--grad-teacher); color: white; box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.4); }
+        .btn-student { background: var(--grad-student); color: white; box-shadow: 0 10px 20px -5px rgba(236, 72, 153, 0.4); }
+        /* --- NEW: SE Button --- */
+        .btn-se { background: var(--grad-se); color: white; box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.4); }
+
+        .btn-outline { background: white; border: 2px solid #E2E8F0; color: var(--text-main); }
+        .btn-outline:hover { border-color: var(--text-main); }
+
+        /* --- 3. HEADER (Floating) --- */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 100px;
+            padding: 12px 30px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-main);
+        }
+        .logo span { color: var(--primary-blue); }
+
+        .nav-links { display: flex; gap: 32px; }
+        .nav-links a { font-weight: 600; color: var(--text-sub); font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--primary-blue); }
+
+        .nav-btn {
+            padding: 10px 24px;
+            background: var(--text-main);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .nav-btn:hover { background: #333; }
+
+        /* --- 4. HERO SECTION --- */
         .hero {
-            padding: 120px 0;
+            padding: 180px 0 100px 0;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
+        
+        /* Background Glows */
+        .hero::before, .hero::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            opacity: 0.15;
+            filter: blur(100px);
+            z-index: -1;
+            border-radius: 50%;
+        }
+        .hero::before { background: var(--primary-blue); top: -100px; left: -100px; }
+        .hero::after { background: var(--primary-pink); bottom: -100px; right: -100px; }
+
         .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-dark);
+            font-size: 4.5rem;
+            line-height: 1.1;
             font-weight: 800;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
         }
         .hero p {
             font-size: 1.25rem;
-            max-width: 800px;
-            margin: 0 auto 40px auto;
-            color: #555;
+            color: var(--text-sub);
+            max-width: 700px;
+            margin: 0 auto 40px;
         }
-        .hero .download-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-        }
+        .hero-actions { display: flex; justify-content: center; gap: 20px; }
 
-        /* --- Platform Sections (Giữ nguyên) --- */
-        .platform-section {
-            padding: 100px 0;
-            overflow: hidden;
-        }
-        .section-header {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 70px auto;
-        }
-        .platform-section h2 {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            font-weight: 800;
-        }
-        .platform-section .section-subtitle {
-            font-size: 1.2rem;
-            color: #555;
-        }
-        
-        #teacher-platform h2 { color: var(--teacher-primary-start); }
-        #student-platform h2 { color: var(--student-primary-start); }
-        #guides-section h2 { color: #333; }
-        #about-us h2 { color: #6a11cb; } /* Màu mới cho mục Về Chúng Tôi */
-        #contact h2 { color: #2575fc; } /* Màu mới cho mục Liên Hệ */
+        /* --- 5. BENTO GRID FEATURES --- */
+        .section-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
+        .section-header h2 { font-size: 3rem; font-weight: 800; margin-bottom: 16px; }
 
-        /* === BẮT ĐẦU PHỤC HỒI CSS CŨ CHO TÍNH NĂNG === */
-        .features-grid-5, .features-grid-4 {
+        .bento-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 24px;
+            margin-bottom: 60px; /* Space for image below */
         }
         
-        .feature-card-old {
-            background: #FFFFFF;
-            padding: 35px;
-            border-radius: 12px;
-            border: 1px solid #E2E8F0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        .bento-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 32px;
             transition: all 0.3s ease;
+            display: flex; flex-direction: column; justify-content: space-between;
         }
-        .feature-card-old:hover {
+        .bento-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-        }
-        .feature-card-old .icon {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-        }
-        .feature-card-old h3 {
-            font-size: 1.6rem;
-            margin-bottom: 10px;
-        }
-        .feature-card-old p {
-            color: #444;
-        }
-
-        @media (min-width: 992px) {
-            .features-grid-5 {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            .features-grid-5 .feature-card-old:nth-child(4) {
-                grid-column: 1 / 2;
-            }
-            .features-grid-5 .feature-card-old:nth-child(5) {
-                grid-column: 2 / 4;
-            }
-            .features-grid-4 {
-                grid-template-columns: repeat(4, 1fr);
-            }
+            box-shadow: var(--shadow-xl);
+            border-color: transparent;
         }
         
-        @media (min-width: 1200px) {
-                .features-grid-5 {
-                grid-template-columns: repeat(5, 1fr);
-            }
-                .features-grid-5 .feature-card-old:nth-child(n) {
-                grid-column: auto;
-            }
-        }
-        /* === KẾT THÚC PHỤC HỒI CSS CŨ === */
+        .teacher-section .bento-card:hover { border-top: 4px solid var(--primary-teal); }
+        .student-section .bento-card:hover { border-top: 4px solid var(--primary-orange); }
+        /* --- NEW: SE Section Hover --- */
+        .se-section .bento-card:hover { border-top: 4px solid var(--primary-purple); }
 
-        /* --- Glassmorphism Card (Giữ lại cho mục Hướng dẫn) --- */
-        .guide-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+        .bento-icon {
+            width: 50px; height: 50px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-bottom: 20px;
         }
-        .guide-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px 0 var(--shadow-light);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .icon-teacher { background: rgba(59, 130, 246, 0.1); color: var(--primary-blue); }
+        .icon-student { background: rgba(236, 72, 153, 0.1); color: var(--primary-pink); }
+        /* --- NEW: SE Icon --- */
+        .icon-se { background: rgba(139, 92, 246, 0.1); color: var(--primary-purple); }
+
+        .bento-card h3 { font-size: 1.5rem; margin-bottom: 12px; font-weight: 700; }
+        .bento-card p { color: var(--text-sub); font-size: 1rem; }
+
+        /* Responsive Grid Logic */
+        @media (min-width: 768px) { .bento-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) {
+            .bento-grid { grid-template-columns: repeat(3, 1fr); }
+            .col-span-2 { grid-column: span 2; }
+            .col-span-3 { grid-column: span 3; } /* Added for SE layout */
+        }
+
+        /* --- IMAGE CONTAINER --- */
+        .feature-image-container {
             text-align: center;
+            margin-top: 40px;
         }
-        .guide-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 15px 40px 0 var(--shadow-light);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-        .guide-card .icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
-        .guide-card:hover .icon {
-            transform: scale(1.2) rotate(-10deg);
-        }
-        .guide-card h3 {
-            font-size: 1.7rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        .guide-card p {
-            color: #444;
-        }
-
         .app-screenshot {
-            display: block;
             max-width: 90%;
-            margin: 80px auto 0 auto;
+            margin: 0 auto;
             border-radius: 20px;
-            box-shadow: 0 20px 50px -10px var(--shadow-light);
-            transition: transform 0.5s ease-in-out;
+            box-shadow: 0 20px 50px -10px rgba(0,0,0,0.15); 
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.5s ease;
         }
-        .app-screenshot:hover {
-            transform: scale(1.02) translateY(-5px);
-        }
-        
-        /* --- Download Section (Giữ nguyên) --- */
-        .download-section {
-            padding: 100px 0;
-            text-align: center;
-            background: var(--dark-bg);
-            color: var(--text-light);
-            overflow: hidden;
-            position: relative;
-        }
-        .download-section h2 {
-            font-size: 3rem;
-            margin-bottom: 60px;
-            font-weight: 800;
-        }
-        .download-options {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
+        .app-screenshot:hover { transform: scale(1.02); }
+
+        /* --- 6. DOWNLOAD & GUIDES --- */
+        .downloads-wrapper {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
         }
         .download-card {
-            background: rgba(45, 55, 72, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 20px;
-            width: 350px;
-            text-align: center;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            background: var(--text-main); color: white; padding: 40px;
+            border-radius: var(--radius-lg); text-align: center;
+            display: flex; flex-direction: column; justify-content: space-between;
         }
-        .download-card:hover {
-            transform: translateY(-8px);
-            background: rgba(74, 85, 104, 0.9);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        .download-card.light {
+            background: white; color: var(--text-main); border: 1px solid var(--border-light);
         }
-        .download-card .icon { font-size: 3.5rem; margin-bottom: 20px; }
-        .download-card h3 { font-size: 2.2rem; margin-bottom: 15px; }
-        .download-card p { color: #A0AEC0; margin-bottom: 30px; min-height: 50px; }
+        /* --- NEW: SE Download Card --- */
+        .download-card.se-card {
+            background: #2E1065; /* Dark purple */
+            border: 2px solid var(--primary-purple);
+            position: relative;
+            overflow: hidden;
+        }
+        /* ĐÃ XÓA PHẦN RUY BĂNG VIP Ở ĐÂY */
 
-        /* --- BẮT ĐẦU CSS CHO PHẦN MỚI --- */
-        /* --- About Us Section --- */
-        .about-content {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
+        .download-card h3 { font-size: 1.8rem; margin-bottom: 10px; }
+        .download-card p { margin-bottom: 30px; opacity: 0.8; }
+
+        /* --- 7. ABOUT US --- */
+        .team-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .team-card {
+            background: white; padding: 30px; border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light); text-align: center; width: 300px; transition: 0.3s;
         }
-        .about-description {
-            font-size: 1.15rem;
-            color: #555;
-            margin-bottom: 50px;
-        }
-        .creators {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-        .creator-card {
-            background: #fff;
-            padding: 25px 30px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            min-width: 250px;
-            transition: all 0.3s ease;
-        }
-        .creator-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-        }
-        .creator-card h3 {
-            margin: 0 0 5px 0;
-            font-size: 1.5rem;
-            color: var(--text-dark);
-        }
-        .creator-card p {
-            margin: 0;
-            color: var(--teacher-primary-start);
-            font-weight: 600;
+        .team-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-5px); }
+        .team-card img {
+            width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin: 0 auto 20px; background: #eee;
         }
 
-        /* --- CSS MỚI CHO LOGO FACEBOOK --- */
-        .social-links {
-            margin-top: 15px;
-        }
-        .social-links a {
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
-        .social-links a:hover {
-            transform: scale(1.15);
-        }
-        .social-links img {
-            width: 28px;
-            height: 28px;
-            vertical-align: middle;
-        }
-        /* --- KẾT THÚC CSS MỚI --- */
+        /* --- 8. FOOTER & ANIMATION --- */
+        footer { background: var(--text-main); color: white; padding: 60px 0 30px; text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; }
+        .footer-links a:hover { color: white; }
+        .copyright { color: #475569; font-size: 0.9rem; }
 
-        /* --- Contact Section --- */
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            flex-wrap: wrap;
-            text-align: center;
-        }
-        .contact-item {
-            background: var(--card-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px 0 var(--shadow-light);
-            width: 300px;
-            transition: all 0.3s ease;
-        }
-        .contact-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 35px var(--shadow-light);
-        }
-        .contact-item .icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-        }
-        .contact-item h3 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .contact-item p {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 0;
-        }
-        .contact-item p a {
-            color: var(--student-primary-start);
-            transition: color 0.3s ease;
-        }
-        .contact-item p a:hover {
-            color: #d83a65;
-            text-decoration: underline;
-        }
-        /* --- KẾT THÚC CSS CHO PHẦN MỚI --- */
-        
-        /* --- Footer (Giữ nguyên) --- */
-        .main-footer {
-            background: #171923;
-            color: var(--text-light);
-            text-align: center;
-            padding: 30px 0;
-        }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* --- Animations (Giữ nguyên) --- */
-        .animated-section {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .animated-section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* --- Responsive (Giữ nguyên) --- */
-        @media(max-width: 992px) {
-            .main-nav a { margin-left: 15px; }
-        }
-        @media(max-width: 768px) {
-            .hero h1 { font-size: 2.8rem; }
-            .hero p { font-size: 1.1rem; }
-            .platform-section h2, .download-section h2 { font-size: 2.2rem; }
-            .main-header .container { flex-direction: column; gap: 15px; }
-            .main-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-            .main-nav a { margin: 0 10px; }
-            .hero .download-buttons { flex-direction: column; gap: 15px; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .navbar { top: 0; width: 100%; border-radius: 0; max-width: none; border: none; border-bottom: 1px solid var(--border-light); padding: 15px 20px; }
+            .nav-links { display: none; }
+            .hero { padding-top: 120px; }
+            .bento-grid { grid-template-columns: 1fr; }
+            .col-span-2, .col-span-3 { grid-column: auto; }
+            .hero-actions { flex-direction: column; padding: 0 40px; }
+            .btn { width: 100%; justify-content: center; }
         }
     </style>
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="container">
-            <a href="#" class="logo">
-                <img src="dolphin_logo.png" alt="TeamEdu Logo" class="logo-image">
-                TEAM<span>EDU</span>
-            </a>
-            <nav class="main-nav">
-                <a href="#about-us">Về TeamEdu</a>
-                <a href="#teacher-platform">Giáo Viên</a>
-                <a href="#student-platform">Học Sinh</a>
-                <a href="#guides-section">Hướng Dẫn</a>
-                <a href="#download">Tải Về</a>
-                <a href="#contact">Liên Hệ</a>
-            </nav>
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <img src="dolphin_logo.png" alt="Logo" style="height: 30px;">
+            Team<span>Edu</span>
+        </a>
+        <div class="nav-links">
+            <a href="#teacher">Giáo Viên</a>
+            <a href="#student">Học Sinh</a>
+            <a href="#se" style="color: var(--primary-purple); font-weight: 700;">Phiên Bản SE</a>
+            <a href="#guides">Hướng Dẫn</a>
+            <a href="#about">Về Chúng Tôi</a>
         </div>
-    </header>
+        <a href="#download" class="nav-btn">Tải Ứng Dụng</a>
+    </nav>
 
-    <main>
-        <section class="hero animated-section">
-            <div class="container">
-                <h1>Kiến Tạo Tương Lai Giáo Dục</h1>
-                <p>Bộ đôi ứng dụng TeamEdu sử dụng sức mạnh AI, kiến tạo một vòng tròn giáo dục khép kín, tối ưu hóa quá trình giảng dạy và tối đa hóa hiệu quả học tập.</p>
-                <div class="download-buttons">
-                    <a href="#download" class="btn btn-teacher">Tải Bản Cho Giáo Viên</a>
-                    <a href="#download" class="btn btn-student">Tải Bản Cho Học Sinh</a>
+    <section class="hero">
+        <div class="container reveal">
+            <div style="display:flex; gap:10px; justify-content: center; flex-wrap: wrap;">
+                <span class="badge badge-teacher">Phiên bản 2025</span>
+                <span class="badge badge-se">Mới: TeamEdu SE</span>
+            </div>
+            
+            <h1>Kiến Tạo Tương Lai<br>
+            <span class="text-gradient-teacher">Giáo Dục</span> & <span class="text-gradient-student">Công Nghệ</span></h1>
+            <p>Bộ đôi ứng dụng TeamEdu sử dụng sức mạnh AI, kiến tạo một vòng tròn giáo dục khép kín, tối ưu hóa quá trình giảng dạy và tối đa hóa hiệu quả học tập.</p>
+            
+            <div class="hero-actions">
+                <a href="#download" class="btn btn-teacher">
+                    <i class="fa-solid fa-chalkboard-user"></i> Tải Bản Cho Giáo Viên
+                </a>
+                <a href="#download" class="btn btn-student">
+                    <i class="fa-solid fa-graduation-cap"></i> Tải Bản Cho Học Sinh
+                </a>
+            </div>
+            <div style="margin-top: 20px;">
+                <a href="#se" style="color: var(--primary-purple); font-weight: 600; font-size: 0.9rem;">
+                    Hoặc khám phá phiên bản SE cao cấp <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="teacher" class="section-padding teacher-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="badge badge-teacher">For Teacher</span>
+                <h2>Công Cụ Toàn Diện Cho Giáo Viên</h2>
+                <p>Tự động hóa công việc, giải phóng thời gian để thầy cô tập trung vào điều quan trọng nhất: truyền cảm hứng và tri thức.</p>
+            </div>
+
+            <div class="bento-grid">
+                <div class="bento-card col-span-2 reveal">
+                    <div class="bento-icon icon-teacher">📑</div>
+                    <h3>Soạn Giáo án AI</h3>
+                    <p>Sử dụng hình ảnh sách giáo khoa để AI tự động tạo giáo án theo chuẩn quy định, giúp tiết kiệm thời gian soạn bài.</p>
+                </div>
+
+                <div class="bento-card reveal">
+                    <div class="bento-icon icon-teacher">✍️</div>
+                    <h3>Tạo Đề Thi Thông Minh</h3>
+                    <p>AI có thể tạo ra một đề thi hoàn chỉnh chỉ trong vài phút, dựa trên các lựa chọn về môn học và khối lớp của giáo viên.</p>
+                </div>
+
+                <div class="bento-card reveal">
+                    <div class="bento-icon icon-teacher">📚</div>
+                    <h3>Kho Học Liệu & Thuyết Trình</h3>
+                    <p>Truy cập thư viện bài giảng PowerPoint phong phú, được sắp xếp theo từng chủ đề để phục vụ công tác giảng dạy.</p>
+                </div>
+
+                <div class="bento-card col-span-2 reveal">
+                    <div class="bento-icon icon-teacher">🔬</div>
+                    <h3>Mô phỏng Khoa học</h3>
+                    <p>Cung cấp các mô phỏng Hóa học và Vật lý tương tác, giúp bài giảng trở nên trực quan và sinh động hơn.</p>
+                </div>
+
+                <div class="bento-card reveal">
+                    <div class="bento-icon icon-teacher">🔍</div>
+                    <h3>Tìm kiếm AI Nâng cao</h3>
+                    <p>Tích hợp AI vào công cụ tìm kiếm, hỗ trợ sửa lỗi văn bản, tra cứu thông tin và đánh giá các ý tưởng giảng dạy.</p>
                 </div>
             </div>
-        </section>
 
-        <section id="teacher-platform" class="platform-section animated-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Công Cụ Toàn Diện Cho Giáo Viên</h2>
-                    <p class="section-subtitle">Tự động hóa công việc, giải phóng thời gian để thầy cô tập trung vào điều quan trọng nhất: truyền cảm hứng và tri thức.</p>
-                </div>
-                <div class="features-grid-5">
-                    <div class="feature-card-old">
-                        <div class="icon">📑</div>
-                        <h3>Soạn Giáo án AI</h3>
-                        <p>Sử dụng hình ảnh sách giáo khoa để AI tự động tạo giáo án theo chuẩn quy định, giúp tiết kiệm thời gian soạn bài.</p>
-                    </div>
-                    <div class="feature-card-old">
-                        <div class="icon">✍️</div>
-                        <h3>Tạo Đề Thi Thông Minh</h3>
-                        <p>AI có thể tạo ra một đề thi hoàn chỉnh chỉ trong vài phút, dựa trên các lựa chọn về môn học và khối lớp của giáo viên.</p>
-                    </div>
-                    <div class="feature-card-old">
-                        <div class="icon">📚</div>
-                        <h3>Kho Học Liệu & Thuyết Trình</h3>
-                        <p>Truy cập thư viện bài giảng PowerPoint phong phú, được sắp xếp theo từng chủ đề để phục vụ công tác giảng dạy.</p>
-                    </div>
-                    <div class="feature-card-old">
-                        <div class="icon">🔬</div>
-                        <h3>Mô phỏng Khoa học</h3>
-                        <p>Cung cấp các mô phỏng Hóa học và Vật lý tương tác, giúp bài giảng trở nên trực quan và sinh động hơn.</p>
-                    </div>
-                    <div class="feature-card-old">
-                        <div class="icon">🔍</div>
-                        <h3>Tìm kiếm AI Nâng cao</h3>
-                        <p>Tích hợp AI vào công cụ tìm kiếm, hỗ trợ sửa lỗi văn bản, tra cứu thông tin và đánh giá các ý tưởng giảng dạy.</p>
-                    </div>
-                </div>
+            <div class="feature-image-container reveal">
                 <img src="Image 1.png" alt="Giao diện TeamEdu For Teacher" class="app-screenshot">
             </div>
-        </section>
-        
-        <section id="student-platform" class="platform-section animated-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Người Bạn Đồng Hành Cùng Học Sinh</h2>
-                    <p class="section-subtitle">Một môi trường học tập số hiện đại, tập trung và hiệu quả, giúp học sinh chủ động củng cố kiến thức và bứt phá.</p>
+        </div>
+    </section>
+
+    <section id="student" class="section-padding student-section" style="background-color: #FFF7ED;">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="badge badge-student">For Student</span>
+                <h2>Người Bạn Đồng Hành Cùng Học Sinh</h2>
+                <p>Một môi trường học tập số hiện đại, tập trung và hiệu quả, giúp học sinh chủ động củng cố kiến thức và bứt phá.</p>
+            </div>
+
+            <div class="bento-grid">
+                <div class="bento-card reveal">
+                    <div class="bento-icon icon-student">🎯</div>
+                    <h3>Edu Mode - Chống Xao Lãng</h3>
+                    <p>Giải pháp công nghệ mới giúp giải quyết vấn đề mất tập trung bằng cách tạo ra một môi trường học tập chuyên sâu, không bị làm phiền.</p>
                 </div>
-                <div class="features-grid-4">
-                    <div class="feature-card-old">
-                        <div class="icon">🎯</div>
-                        <h3>Edu Mode - Chống Xao Lãng</h3>
-                        <p>Giải pháp công nghệ mới giúp giải quyết vấn đề mất tập trung bằng cách tạo ra một môi trường học tập chuyên sâu, không bị làm phiền.</p>
-                    </div>
-                    <div class="feature-card-old">
-                        <div class="icon">📈</div>
-                        <h3>Ôn luyện & Luyện đề AI</h3>
-                        <p>Trải nghiệm "Thử thách 5 phút" và các đề thi 60 phút do AI tạo ra, đi kèm tính năng chấm điểm nhanh giúp bạn biết được điểm mạnh, yếu của mình.</p>
-                    </div>
-                    <div class="feature-card-old">
-                        <div class="icon">📚</div>
-                        <h3>Thư viện & Công cụ</h3>
-                        <p>Truy cập thư viện bài thuyết trình mẫu và sử dụng công cụ tìm kiếm thông minh để tra cứu các khái niệm cần thiết cho việc học.</p>
-                    </div>
-                    <div class="feature-card-old">
-                        <div class="icon">💡</div>
-                        <h3>Dễ dàng Sử dụng</h3>
-                        <p>Giao diện thân thiện, không cần các câu lệnh phức tạp, giúp học sinh dễ dàng tiếp cận và sử dụng tất cả các tính năng mạnh mẽ của ứng dụng.</p>
-                    </div>
+
+                <div class="bento-card col-span-2 reveal">
+                    <div class="bento-icon icon-student">📈</div>
+                    <h3>Ôn luyện & Luyện đề AI</h3>
+                    <p>Trải nghiệm "Thử thách 5 phút" và các đề thi 60 phút do AI tạo ra, đi kèm tính năng chấm điểm nhanh giúp bạn biết được điểm mạnh, yếu của mình.</p>
                 </div>
+
+                <div class="bento-card col-span-2 reveal">
+                    <div class="bento-icon icon-student">📚</div>
+                    <h3>Thư viện & Công cụ</h3>
+                    <p>Truy cập thư viện bài thuyết trình mẫu và sử dụng công cụ tìm kiếm thông minh để tra cứu các khái niệm cần thiết cho việc học.</p>
+                </div>
+
+                <div class="bento-card reveal">
+                    <div class="bento-icon icon-student">💡</div>
+                    <h3>Dễ dàng Sử dụng</h3>
+                    <p>Giao diện thân thiện, không cần các câu lệnh phức tạp, giúp học sinh dễ dàng tiếp cận và sử dụng tất cả các tính năng mạnh mẽ của ứng dụng.</p>
+                </div>
+            </div>
+
+             <div class="feature-image-container reveal">
                 <img src="Image 2.png" alt="Giao diện TeamEdu For Student" class="app-screenshot">
             </div>
-        </section>
-        
-        <section id="guides-section" class="platform-section animated-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Hướng Dẫn Sử Dụng</h2>
-                    <p class="section-subtitle">Tài liệu chi tiết giúp bạn làm chủ mọi tính năng mạnh mẽ của bộ đôi ứng dụng TeamEdu.</p>
-                </div>
-                <div class="guide-grid">
-                    <div class="guide-card">
-                        <div class="icon">👩‍🏫</div>
-                        <h3>Dành cho Giáo viên</h3>
-                        <p>Khám phá cách soạn giáo án, tạo đề thi bằng AI và tận dụng kho học liệu phong phú.</p>
-                        <a href="hdsd_FT.pdf" target="_blank" class="btn btn-teacher" style="margin-top: 20px;">Xem Hướng Dẫn</a>
-                    </div>
-                    <div class="guide-card">
-                        <div class="icon">🎓</div>
-                        <h3>Dành cho Học sinh</h3>
-                        <p>Tìm hiểu chế độ học tập trung, các phương pháp ôn luyện và công cụ học tập hiệu quả.</p>
-                        <a href="hdsd_FS.pdf" target="_blank" class="btn btn-student" style="margin-top: 20px;">Xem Hướng Dẫn</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="download" class="download-section animated-section">
-            <div class="container">
-                <h2>Bắt Đầu Hành Trình Dạy Và Học Hiệu Quả</h2>
-                <div class="download-options">
-                    <div class="download-card">
-                        <div class="icon">👩‍🏫</div>
-                        <h3>TeamEdu For Teacher</h3>
-                        <p>Dành cho Giáo viên muốn tối ưu hóa thời gian soạn bài và nâng cao chất lượng giảng dạy.</p>
-                       <a href="https://1drv.ms/u/c/95b37184981491e8/EbXVHvEUumJBkL7J7DA3MfgBH8Nsxvbogk-h3TwjIMXsFw?e=j8XEjT" class="btn btn-teacher">Tải cho Windows</a>
-                    </div>
-                    <div class="download-card">
-                        <div class="icon">🎓</div>
-                        <h3>TeamEdu For Student</h3>
-                        <p>Dành cho Học sinh muốn có một công cụ học tập tập trung, thông minh và hiệu quả.</p>
-                        <a href="https://1drv.ms/u/c/95b37184981491e8/ERtzgORYeJFGi8QYwhNFqmgBrIgRdpUEcm9DTco5rp-z5w" class="btn btn-student">Tải cho Windows</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="about-us" class="platform-section animated-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Câu Chuyện Về TeamEdu</h2>
-                    <p class="section-subtitle">Sản phẩm được tạo nên từ tâm huyết và nỗ lực của những nhà phát triển trẻ.</p>
-                </div>
-                <div class="about-content">
-                    <p class="about-description">
-                        <strong>TeamEdu</strong> là trọn bộ ứng dụng giáo dục được xây dựng với mục tiêu mang công nghệ AI đến gần hơn với lớp học, hỗ trợ đắc lực cho cả giáo viên và học sinh. Chúng tôi tin rằng công nghệ có thể giải phóng sức sáng tạo và tối ưu hóa con đường chinh phục tri thức cho thế hệ tương lai.
-                    </p>
-                    <div class="creators">
-                        <div class="creator-card">
-                            <h3>Nguyễn Quốc Cường</h3>
-                            <p>Người sáng lập & Phát triển</p>
-                            <div class="social-links">
-                                <a href="https://www.facebook.com/quoc.cuong.834982" target="_blank" rel="noopener noreferrer">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/2023_Facebook_icon.svg" alt="Facebook Profile">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="creator-card">
-                            <h3>Đỗ Minh Quân</h3>
-                            <p>Đồng sáng lập & Phát triển</p>
-                            <div class="social-links">
-                                <a href="https://www.facebook.com/Totodye.VN" target="_blank" rel="noopener noreferrer">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/2023_Facebook_icon.svg" alt="Facebook Profile">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="platform-section animated-section" style="background: rgba(255,255,255,0.2);">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Liên Hệ & Hỗ Trợ</h2>
-                    <p class="section-subtitle">Chúng tôi luôn sẵn sàng lắng nghe mọi thắc mắc và góp ý từ bạn.</p>
-                </div>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="icon">📞</div>
-                        <h3>Điện thoại</h3>
-                        <p><a href="tel:0867724915">0867 724 915</a></p>
-                    </div>
-                    <div class="contact-item">
-                        <div class="icon">✉️</div>
-                        <h3>Email</h3>
-                        <p><a href="mailto:cuongcong240811@gmail.com">cuongcong240811@gmail.com</a></p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        </main>
-
-    <footer class="main-footer">
+    <section id="se" class="section-padding se-section" style="background: linear-gradient(180deg, #F8FAFC 0%, #F3E8FF 100%);">
         <div class="container">
-            <p>&copy; 2025 Team Edu. All Rights Reserved.</p>
+            <div class="section-header reveal">
+                <span class="badge badge-se">Phiên Bản Đặc Biệt</span>
+                <h2 class="text-gradient-se">TeamEdu SE (Special Edition)</h2>
+                <p>Phiên bản "Tất cả trong một" hội tụ tính năng của cả Giáo viên và Học sinh, bổ sung sức mạnh xử lý văn bản AI.</p>
+            </div>
+
+            <div class="bento-grid">
+                <div class="bento-card col-span-3 reveal" style="border: 2px solid var(--primary-purple); background: white;">
+                    <div style="display: flex; gap: 30px; align-items: center; flex-wrap: wrap;">
+                        <div style="flex: 2;">
+                            <div class="bento-icon icon-se" style="width: 60px; height: 60px; font-size: 1.8rem;">📸</div>
+                            <h3 style="color: var(--primary-purple);">Tính Năng Mới: Scan OCR Văn Bản</h3>
+                            <p>Công nghệ nhận diện ký tự quang học (OCR) tiên tiến giúp bạn chuyển đổi hình ảnh tài liệu, sách giáo khoa thành văn bản (Word/PDF) có thể chỉnh sửa chỉ trong 1 giây.</p>
+                        </div>
+                        <div style="flex: 1; text-align: center; background: #F3E8FF; padding: 20px; border-radius: 16px; border: 1px dashed var(--primary-purple);">
+                            <i class="fa-solid fa-camera" style="font-size: 2rem; color: #8B5CF6;"></i>
+                            <i class="fa-solid fa-arrow-right" style="margin: 0 15px; color: #8B5CF6;"></i>
+                            <i class="fa-solid fa-file-word" style="font-size: 2rem; color: #2563EB;"></i>
+                            <p style="margin-top: 10px; font-weight: 700; color: #4B5563;">Image to Docx</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bento-card reveal">
+                    <div class="bento-icon icon-teacher">✨</div>
+                    <h3>Full Tính Năng FT</h3>
+                    <p>Bao gồm trọn bộ công cụ soạn giáo án, tạo đề thi và kho học liệu của phiên bản Giáo Viên.</p>
+                </div>
+
+                <div class="bento-card reveal">
+                    <div class="bento-icon icon-student">✨</div>
+                    <h3>Full Tính Năng FS</h3>
+                    <p>Tích hợp đầy đủ chế độ Edu Mode, luyện đề và thư viện học tập của phiên bản Học Sinh.</p>
+                </div>
+
+                <div class="bento-card reveal">
+                    <div class="bento-icon icon-se">⚡</div>
+                    <h3>Hiệu Năng Tối Đa</h3>
+                    <p>Phiên bản SE được tối ưu hóa để vận hành mượt mà nhiều tác vụ song song.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="download" class="section-padding">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Tải Ứng Dụng</h2>
+                <p>Hãy chọn phiên bản phù hợp nhất với nhu cầu của bạn.</p>
+            </div>
+            
+            <div class="downloads-wrapper">
+                <div class="download-card reveal">
+                    <div style="font-size: 3rem; margin-bottom: 20px; color: var(--primary-teal);">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                    </div>
+                    <h3>TeamEdu For Teacher</h3>
+                    <p>Dành cho Giáo viên muốn tối ưu hóa thời gian soạn bài và nâng cao chất lượng giảng dạy.</p>
+                    <div style="display:flex; gap:10px; flex-direction: column;">
+                        <a href="https://1drv.ms/f/c/95b37184981491e8/IgCkVBYPq6KAT4_cFWmKl6yKAbxCYrQ6QX58LlgkbsvhkXc?e=Bv2wTW" class="btn btn-teacher" style="width:100%; justify-content: center;">Tải cho Windows</a>
+                        <a href="hdsd_FT.pdf" class="btn btn-outline" style="width:100%; justify-content: center; border: 1px solid rgba(255,255,255,0.2); background:transparent; color: white;">Xem Hướng Dẫn</a>
+                    </div>
+                </div>
+
+                <div class="download-card se-card reveal">
+                    <div style="font-size: 3rem; margin-bottom: 20px; color: var(--primary-gold);">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <h3 class="text-gradient-se">TeamEdu SE</h3>
+                    <p style="color: #E9D5FF;">Phiên bản đầy đủ: FT + FS + Scan OCR.</p>
+                    
+                    <ul style="text-align: left; margin-bottom: 20px; list-style: none; color: #D8B4FE; font-size: 0.9rem;">
+                        <li style="margin-bottom: 8px;"><i class="fa-solid fa-check" style="color:#F59E0B; margin-right:5px;"></i> Full tính năng Giáo viên</li>
+                        <li style="margin-bottom: 8px;"><i class="fa-solid fa-check" style="color:#F59E0B; margin-right:5px;"></i> Full tính năng Học sinh</li>
+                        <li style="margin-bottom: 8px;"><i class="fa-solid fa-check" style="color:#F59E0B; margin-right:5px;"></i> <strong>Scan ảnh ra Word</strong></li>
+                    </ul>
+
+                    <div style="display:flex; gap:10px; flex-direction: column;">
+                        <a href="#contact" class="btn btn-se" style="width:100%; justify-content: center;">Tải TeamEdu SE</a>
+                    </div>
+                </div>
+                
+                <div class="download-card light reveal">
+                    <div style="font-size: 3rem; margin-bottom: 20px; color: var(--primary-pink);">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h3>TeamEdu For Student</h3>
+                    <p>Dành cho Học sinh muốn có một công cụ học tập tập trung, thông minh và hiệu quả.</p>
+                    <div style="display:flex; gap:10px; flex-direction: column;">
+                        <a href="https://1drv.ms/f/c/95b37184981491e8/IgBSfmEZsYhHQ5YAH1Uv0z02AR-7Y3OLtupWd3rtexb6FBI?e=GekNob" class="btn btn-student" style="width:100%; justify-content: center;">Tải cho Windows</a>
+                        <a href="hdsd_FS.pdf" class="btn btn-outline" style="width:100%; justify-content: center;">Xem Hướng Dẫn</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="guides" class="section-padding" style="background: #F1F5F9;">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Hướng Dẫn Sử Dụng</h2>
+                <p>Tài liệu chi tiết giúp bạn làm chủ mọi tính năng mạnh mẽ của bộ đôi ứng dụng TeamEdu.</p>
+            </div>
+            <div class="downloads-wrapper">
+                <div class="bento-card reveal" style="text-align: center;">
+                    <div class="bento-icon icon-teacher" style="margin: 0 auto 20px auto;">👩‍🏫</div>
+                    <h3>Dành cho Giáo viên</h3>
+                    <p>Khám phá cách soạn giáo án, tạo đề thi bằng AI và tận dụng kho học liệu phong phú.</p>
+                    <a href="hdsd_FT.pdf" target="_blank" class="btn btn-teacher" style="margin-top: 20px;">Xem Hướng Dẫn</a>
+                </div>
+                <div class="bento-card reveal" style="text-align: center;">
+                    <div class="bento-icon icon-student" style="margin: 0 auto 20px auto;">🎓</div>
+                    <h3>Dành cho Học sinh</h3>
+                    <p>Tìm hiểu chế độ học tập trung, các phương pháp ôn luyện và công cụ học tập hiệu quả.</p>
+                    <a href="hdsd_FS.pdf" target="_blank" class="btn btn-student" style="margin-top: 20px;">Xem Hướng Dẫn</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section-padding" style="background: white;">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Câu Chuyện Về TeamEdu</h2>
+                <p>Sản phẩm được tạo nên từ tâm huyết và nỗ lực của những nhà phát triển trẻ.</p>
+            </div>
+
+            <div style="max-width: 800px; margin: 0 auto 50px; text-align: center;" class="reveal">
+                <p><strong>TeamEdu</strong> là trọn bộ ứng dụng giáo dục được xây dựng với mục tiêu mang công nghệ AI đến gần hơn với lớp học, hỗ trợ đắc lực cho cả giáo viên và học sinh. Chúng tôi tin rằng công nghệ có thể giải phóng sức sáng tạo và tối ưu hóa con đường chinh phục tri thức cho thế hệ tương lai.</p>
+            </div>
+
+            <div class="team-grid reveal">
+                <div class="team-card">
+                    <img src="https://ui-avatars.com/api/?name=Quoc+Cuong&background=0D8ABC&color=fff" alt="Nguyễn Quốc Cường">
+                    <h3>Nguyễn Quốc Cường</h3>
+                    <p style="color:var(--primary-blue); font-weight:600; margin-bottom:15px;">Founder & Developer</p>
+                    <a href="https://www.facebook.com/quoc.cuong.834982" target="_blank" style="color: #1877F2; font-size: 1.5rem;"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+                <div class="team-card">
+                    <img src="https://ui-avatars.com/api/?name=Minh+Quan&background=F97316&color=fff" alt="Đỗ Minh Quân">
+                    <h3>Đỗ Minh Quân</h3>
+                    <p style="color:var(--primary-orange); font-weight:600; margin-bottom:15px;">Co-Founder & Developer</p>
+                    <a href="https://www.facebook.com/Totodye.VN" target="_blank" style="color: #1877F2; font-size: 1.5rem;"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding" style="background: #F8FAFC;">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Liên Hệ & Hỗ Trợ</h2>
+                <p>Chúng tôi luôn sẵn sàng lắng nghe mọi thắc mắc và góp ý từ bạn.</p>
+            </div>
+            <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;" class="reveal">
+                <div class="bento-card" style="text-align: center; width: 300px;">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;">📞</div>
+                    <h3>Điện thoại</h3>
+                    <p><a href="tel:0867724915" style="font-weight: 700; color: var(--primary-blue);">0867 724 915</a></p>
+                </div>
+                <div class="bento-card" style="text-align: center; width: 300px;">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;">✉️</div>
+                    <h3>Email</h3>
+                    <p><a href="mailto:cuongcong240811@gmail.com" style="font-weight: 700; color: var(--primary-blue);">cuongcong240811@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="logo" style="justify-content: center; margin-bottom: 20px; color: white;">
+                Team<span>Edu</span>
+            </div>
+            <div class="footer-links">
+                <a href="#teacher">Giáo Viên</a>
+                <a href="#student">Học Sinh</a>
+                <a href="#about">Về Chúng Tôi</a>
+                <a href="#contact">Liên Hệ</a>
+            </div>
+            <p class="copyright">&copy; 2025 TeamEdu. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const animatedElements = document.querySelectorAll('.animated-section');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
+            const reveals = document.querySelectorAll('.reveal');
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                const elementVisible = 100;
+                reveals.forEach((reveal) => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add('active');
                     }
                 });
-            }, { threshold: 0.1 });
-
-            animatedElements.forEach(element => {
-                observer.observe(element);
-            });
+            };
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll();
         });
     </script>
 </body>
