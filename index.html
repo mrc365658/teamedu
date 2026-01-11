@@ -28,15 +28,15 @@
             --primary-pink: #EC4899;
             --primary-orange: #F97316;
             
-            /* --- NEW: SE Colors (Purple & Gold) --- */
-            --primary-purple: #8B5CF6;
+            /* --- PRO Colors (Deep Purple & Gold) --- */
+            --primary-pro: #6D28D9;
             --primary-gold: #F59E0B;
             
             /* Gradients */
             --grad-teacher: linear-gradient(135deg, #3B82F6 0%, #14B8A6 100%);
             --grad-student: linear-gradient(135deg, #EC4899 0%, #F97316 100%);
-            /* --- NEW: SE Gradient --- */
-            --grad-se: linear-gradient(135deg, #7C3AED 0%, #F59E0B 100%);
+            /* --- PRO Gradient --- */
+            --grad-pro: linear-gradient(135deg, #5B21B6 0%, #F59E0B 100%);
 
             /* Neutrals */
             --bg-body: #F8FAFC;
@@ -89,8 +89,8 @@
         }
         .badge-teacher { background: rgba(59, 130, 246, 0.1); color: var(--primary-blue); }
         .badge-student { background: rgba(236, 72, 153, 0.1); color: var(--primary-pink); }
-        /* --- NEW: SE Badge --- */
-        .badge-se { background: rgba(139, 92, 246, 0.1); color: var(--primary-purple); border: 1px solid rgba(139, 92, 246, 0.2); }
+        /* --- PRO Badge --- */
+        .badge-pro { background: rgba(109, 40, 217, 0.1); color: var(--primary-pro); border: 1px solid rgba(109, 40, 217, 0.2); }
 
         .text-gradient-teacher {
             background: var(--grad-teacher);
@@ -102,9 +102,9 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        /* --- NEW: SE Text Gradient --- */
-        .text-gradient-se {
-            background: var(--grad-se);
+        /* --- PRO Text Gradient --- */
+        .text-gradient-pro {
+            background: var(--grad-pro);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -122,8 +122,8 @@
         .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-xl); }
         .btn-teacher { background: var(--grad-teacher); color: white; box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.4); }
         .btn-student { background: var(--grad-student); color: white; box-shadow: 0 10px 20px -5px rgba(236, 72, 153, 0.4); }
-        /* --- NEW: SE Button --- */
-        .btn-se { background: var(--grad-se); color: white; box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.4); }
+        /* --- PRO Button --- */
+        .btn-pro { background: var(--grad-pro); color: white; box-shadow: 0 10px 20px -5px rgba(109, 40, 217, 0.4); }
 
         .btn-outline { background: white; border: 2px solid #E2E8F0; color: var(--text-main); }
         .btn-outline:hover { border-color: var(--text-main); }
@@ -237,8 +237,8 @@
         
         .teacher-section .bento-card:hover { border-top: 4px solid var(--primary-teal); }
         .student-section .bento-card:hover { border-top: 4px solid var(--primary-orange); }
-        /* --- NEW: SE Section Hover --- */
-        .se-section .bento-card:hover { border-top: 4px solid var(--primary-purple); }
+        /* --- PRO Section Hover --- */
+        .pro-section .bento-card:hover { border-top: 4px solid var(--primary-pro); }
 
         .bento-icon {
             width: 50px; height: 50px; border-radius: 12px;
@@ -247,8 +247,8 @@
         }
         .icon-teacher { background: rgba(59, 130, 246, 0.1); color: var(--primary-blue); }
         .icon-student { background: rgba(236, 72, 153, 0.1); color: var(--primary-pink); }
-        /* --- NEW: SE Icon --- */
-        .icon-se { background: rgba(139, 92, 246, 0.1); color: var(--primary-purple); }
+        /* --- PRO Icon --- */
+        .icon-pro { background: rgba(109, 40, 217, 0.1); color: var(--primary-pro); }
 
         .bento-card h3 { font-size: 1.5rem; margin-bottom: 12px; font-weight: 700; }
         .bento-card p { color: var(--text-sub); font-size: 1rem; }
@@ -258,7 +258,7 @@
         @media (min-width: 1024px) {
             .bento-grid { grid-template-columns: repeat(3, 1fr); }
             .col-span-2 { grid-column: span 2; }
-            .col-span-3 { grid-column: span 3; } /* Added for SE layout */
+            .col-span-3 { grid-column: span 3; } /* Added for PRO layout */
         }
 
         /* --- IMAGE CONTAINER --- */
@@ -288,15 +288,14 @@
         .download-card.light {
             background: white; color: var(--text-main); border: 1px solid var(--border-light);
         }
-        /* --- NEW: SE Download Card --- */
-        .download-card.se-card {
+        /* --- PRO Download Card --- */
+        .download-card.pro-card {
             background: #2E1065; /* Dark purple */
-            border: 2px solid var(--primary-purple);
+            border: 2px solid var(--primary-pro);
             position: relative;
             overflow: hidden;
         }
-        /* ĐÃ XÓA PHẦN RUY BĂNG VIP Ở ĐÂY */
-
+        
         .download-card h3 { font-size: 1.8rem; margin-bottom: 10px; }
         .download-card p { margin-bottom: 30px; opacity: 0.8; }
 
@@ -342,7 +341,7 @@
         <div class="nav-links">
             <a href="#teacher">Giáo Viên</a>
             <a href="#student">Học Sinh</a>
-            <a href="#se" style="color: var(--primary-purple); font-weight: 700;">Phiên Bản SE</a>
+            <a href="#pro" style="color: var(--primary-pro); font-weight: 700;">Phiên Bản PRO</a>
             <a href="#guides">Hướng Dẫn</a>
             <a href="#about">Về Chúng Tôi</a>
         </div>
@@ -353,7 +352,7 @@
         <div class="container reveal">
             <div style="display:flex; gap:10px; justify-content: center; flex-wrap: wrap;">
                 <span class="badge badge-teacher">Phiên bản 2025</span>
-                <span class="badge badge-se">Mới: TeamEdu SE</span>
+                <span class="badge badge-pro">Mới: TeamEdu PRO</span>
             </div>
             
             <h1>Kiến Tạo Tương Lai<br>
@@ -369,8 +368,8 @@
                 </a>
             </div>
             <div style="margin-top: 20px;">
-                <a href="#se" style="color: var(--primary-purple); font-weight: 600; font-size: 0.9rem;">
-                    Hoặc khám phá phiên bản SE cao cấp <i class="fa-solid fa-arrow-right"></i>
+                <a href="#pro" style="color: var(--primary-pro); font-weight: 600; font-size: 0.9rem;">
+                    Hoặc khám phá phiên bản PRO cao cấp <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
         </div>
@@ -462,23 +461,23 @@
         </div>
     </section>
 
-    <section id="se" class="section-padding se-section" style="background: linear-gradient(180deg, #F8FAFC 0%, #F3E8FF 100%);">
+    <section id="pro" class="section-padding pro-section" style="background: linear-gradient(180deg, #F8FAFC 0%, #F3E8FF 100%);">
         <div class="container">
             <div class="section-header reveal">
-                <span class="badge badge-se">Phiên Bản Đặc Biệt</span>
-                <h2 class="text-gradient-se">TeamEdu SE (Special Edition)</h2>
-                <p>Phiên bản "Tất cả trong một" hội tụ tính năng của cả Giáo viên và Học sinh, bổ sung sức mạnh xử lý văn bản AI.</p>
+                <span class="badge badge-pro">Phiên Bản Đặc Biệt</span>
+                <h2 class="text-gradient-pro">TeamEdu PRO</h2>
+                <p>Phiên bản chuyên nghiệp nhất, kết hợp sức mạnh công nghệ PyQt6 và hệ thống luyện thi chuẩn mới 2025.</p>
             </div>
 
             <div class="bento-grid">
-                <div class="bento-card col-span-3 reveal" style="border: 2px solid var(--primary-purple); background: white;">
+                <div class="bento-card col-span-3 reveal" style="border: 2px solid var(--primary-pro); background: white;">
                     <div style="display: flex; gap: 30px; align-items: center; flex-wrap: wrap;">
                         <div style="flex: 2;">
-                            <div class="bento-icon icon-se" style="width: 60px; height: 60px; font-size: 1.8rem;">📸</div>
-                            <h3 style="color: var(--primary-purple);">Tính Năng Mới: Scan OCR Văn Bản</h3>
+                            <div class="bento-icon icon-pro" style="width: 60px; height: 60px; font-size: 1.8rem;">📸</div>
+                            <h3 style="color: var(--primary-pro);">Scan OCR - Chuyển Ảnh Sang Word</h3>
                             <p>Công nghệ nhận diện ký tự quang học (OCR) tiên tiến giúp bạn chuyển đổi hình ảnh tài liệu, sách giáo khoa thành văn bản (Word/PDF) có thể chỉnh sửa chỉ trong 1 giây.</p>
                         </div>
-                        <div style="flex: 1; text-align: center; background: #F3E8FF; padding: 20px; border-radius: 16px; border: 1px dashed var(--primary-purple);">
+                        <div style="flex: 1; text-align: center; background: #F3E8FF; padding: 20px; border-radius: 16px; border: 1px dashed var(--primary-pro);">
                             <i class="fa-solid fa-camera" style="font-size: 2rem; color: #8B5CF6;"></i>
                             <i class="fa-solid fa-arrow-right" style="margin: 0 15px; color: #8B5CF6;"></i>
                             <i class="fa-solid fa-file-word" style="font-size: 2rem; color: #2563EB;"></i>
@@ -488,25 +487,26 @@
                 </div>
 
                 <div class="bento-card reveal">
-                    <div class="bento-icon icon-teacher">✨</div>
-                    <h3>Full Tính Năng FT</h3>
-                    <p>Bao gồm trọn bộ công cụ soạn giáo án, tạo đề thi và kho học liệu của phiên bản Giáo Viên.</p>
+                    <div class="bento-icon icon-pro">📝</div>
+                    <h3>Luyện Thi Chuẩn 2025</h3>
+                    <p>Hệ thống ngân hàng đề và chấm điểm được cập nhật đặc biệt theo cấu trúc và định dạng đề thi mới nhất của Bộ GD&ĐT.</p>
                 </div>
 
                 <div class="bento-card reveal">
-                    <div class="bento-icon icon-student">✨</div>
-                    <h3>Full Tính Năng FS</h3>
-                    <p>Tích hợp đầy đủ chế độ Edu Mode, luyện đề và thư viện học tập của phiên bản Học Sinh.</p>
+                    <div class="bento-icon icon-pro">🚀</div>
+                    <h3>Giao Diện PyQt6</h3>
+                    <p>Được xây dựng trên thư viện PyQt6 hiện đại, mang lại giao diện Desktop Native tuyệt đẹp, hiệu năng xử lý cực nhanh và mượt mà.</p>
                 </div>
 
                 <div class="bento-card reveal">
-                    <div class="bento-icon icon-se">⚡</div>
-                    <h3>Hiệu Năng Tối Đa</h3>
-                    <p>Phiên bản SE được tối ưu hóa để vận hành mượt mà nhiều tác vụ song song.</p>
+                    <div class="bento-icon icon-pro">💎</div>
+                    <h3>All-in-One</h3>
+                    <p>Sở hữu toàn bộ tính năng của phiên bản Giáo viên và Học sinh trong một ứng dụng duy nhất.</p>
                 </div>
             </div>
         </div>
     </section>
+
     <section id="download" class="section-padding">
         <div class="container">
             <div class="section-header reveal">
@@ -527,21 +527,21 @@
                     </div>
                 </div>
 
-                <div class="download-card se-card reveal">
+                <div class="download-card pro-card reveal">
                     <div style="font-size: 3rem; margin-bottom: 20px; color: var(--primary-gold);">
-                        <i class="fa-solid fa-layer-group"></i>
+                        <i class="fa-solid fa-crown"></i>
                     </div>
-                    <h3 class="text-gradient-se">TeamEdu SE</h3>
-                    <p style="color: #E9D5FF;">Phiên bản đầy đủ: FT + FS + Scan OCR.</p>
+                    <h3 class="text-gradient-pro">TeamEdu PRO</h3>
+                    <p style="color: #E9D5FF;">PyQt6 Technology + New Exam Standard.</p>
                     
                     <ul style="text-align: left; margin-bottom: 20px; list-style: none; color: #D8B4FE; font-size: 0.9rem;">
-                        <li style="margin-bottom: 8px;"><i class="fa-solid fa-check" style="color:#F59E0B; margin-right:5px;"></i> Full tính năng Giáo viên</li>
-                        <li style="margin-bottom: 8px;"><i class="fa-solid fa-check" style="color:#F59E0B; margin-right:5px;"></i> Full tính năng Học sinh</li>
-                        <li style="margin-bottom: 8px;"><i class="fa-solid fa-check" style="color:#F59E0B; margin-right:5px;"></i> <strong>Scan ảnh ra Word</strong></li>
+                        <li style="margin-bottom: 8px;"><i class="fa-solid fa-check" style="color:#F59E0B; margin-right:5px;"></i> <strong>Luyện thi chuẩn đề mới</strong></li>
+                        <li style="margin-bottom: 8px;"><i class="fa-solid fa-check" style="color:#F59E0B; margin-right:5px;"></i> Giao diện PyQt6 siêu mượt</li>
+                        <li style="margin-bottom: 8px;"><i class="fa-solid fa-check" style="color:#F59E0B; margin-right:5px;"></i> Scan ảnh ra Word</li>
                     </ul>
 
                     <div style="display:flex; gap:10px; flex-direction: column;">
-                        <a href="#contact" class="btn btn-se" style="width:100%; justify-content: center;">Tải TeamEdu SE</a>
+                        <a href="#contact" class="btn btn-pro" style="width:100%; justify-content: center;">Tải TeamEdu PRO</a>
                     </div>
                 </div>
                 
@@ -666,4 +666,3 @@
     </script>
 </body>
 </html>
-
