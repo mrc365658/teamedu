@@ -9,6 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
 
     <style>
         :root { --primary: #4F46E5; --primary-hover: #4338CA; --bg-color: #F3F4F6; --chat-bg: #FFFFFF; --text-main: #111827; --text-muted: #6B7280; --msg-sent: #4F46E5; --msg-received: #F3F4F6; --admin-bg: #111827; }
@@ -16,26 +17,23 @@
         body { background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%); height: 100vh; display: flex; justify-content: center; align-items: center; }
         .container { width: 100%; max-width: 450px; height: 90vh; background: var(--chat-bg); border-radius: 20px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; overflow: hidden; position: relative; }
         
-        /* Screens */
         .screen { display: none; flex-direction: column; height: 100%; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: var(--chat-bg); z-index: 10; }
         .screen.active { display: flex; }
 
-        /* Login & Waiting Screen */
         .center-screen { justify-content: center; align-items: center; padding: 2rem; text-align: center; }
         .logo-circle { width: 80px; height: 80px; background: var(--primary); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-size: 2rem; margin-bottom: 1.5rem; }
         h2 { margin-bottom: 0.5rem; color: var(--text-main); }
         p { color: var(--text-muted); margin-bottom: 2rem; font-size: 0.9rem; }
         
-        /* Buttons */
         button { width: 100%; padding: 1rem; background: var(--primary); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; display: flex; justify-content: center; align-items: center; gap: 10px; }
         button:hover { background: var(--primary-hover); }
+        button:disabled { background: #9CA3AF; cursor: not-allowed; }
         button.google-btn { background: #fff; color: #333; border: 1px solid #ddd; }
         button.google-btn:hover { background: #f9f9f9; }
         button.google-btn img { width: 20px; }
         button.danger { background: #DC2626; }
         button.danger:hover { background: #B91C1C; }
 
-        /* Chat Screen */
         .chat-header { padding: 1rem 1.5rem; background: var(--chat-bg); border-bottom: 1px solid #E5E7EB; display: flex; justify-content: space-between; align-items: center; z-index: 11; }
         .chat-header h3 { color: var(--text-main); font-size: 1.1rem; }
         .header-actions { display: flex; gap: 10px; align-items: center; }
@@ -50,14 +48,27 @@
         .message.received { align-self: flex-start; }
         .message-sender { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.2rem; margin-left: 0.5rem; }
         .message.sent .message-sender { display: none; }
+        
         .message-content { padding: 0.8rem 1.2rem; border-radius: 15px; font-size: 0.95rem; line-height: 1.4; word-wrap: break-word; }
         .message.sent .message-content { background: var(--msg-sent); color: white; border-bottom-right-radius: 4px; }
         .message.received .message-content { background: var(--msg-received); color: var(--text-main); border-bottom-left-radius: 4px; }
         
-        .chat-input { padding: 1rem; background: var(--chat-bg); border-top: 1px solid #E5E7EB; display: flex; gap: 0.5rem; }
-        .chat-input input { flex: 1; border-radius: 20px; padding: 0.8rem 1.2rem; border: 1px solid #E5E7EB; outline: none; }
-        .chat-input input:focus { border-color: var(--primary); }
-        .chat-input button { width: auto; padding: 0.8rem 1.5rem; border-radius: 20px; }
+        /* Chỉnh CSS cho ảnh và file */
+        .msg-image { max-width: 100%; border-radius: 10px; margin-top: 5px; cursor: pointer; }
+        .msg-file-link { color: inherit; text-decoration: underline; font-weight: 600; word-break: break-all; }
+        .message.received .msg-file-link { color: var(--primary); }
+
+        .chat-input { padding: 1rem; background: var(--chat-bg); border-top: 1px solid #E5E7EB; display: flex; gap: 0.5rem; align-items: center; }
+        .chat-input input[type="text"] { flex: 1; border-radius: 20px; padding: 0.8rem 1.2rem; border: 1px solid #E5E7EB; outline: none; }
+        .chat-input input[type="text"]:focus { border-color: var(--primary); }
+        
+        /* Nút đính kèm */
+        .attach-btn-label { cursor: pointer; padding: 0.6rem; color: var(--text-muted); transition: color 0.2s; display: flex; align-items: center; justify-content: center; }
+        .attach-btn-label:hover { color: var(--primary); }
+        .attach-btn-label svg { width: 24px; height: 24px; }
+        input[type="file"] { display: none; }
+        
+        #send-btn { width: auto; padding: 0.8rem 1.5rem; border-radius: 20px; }
 
         /* Admin Panel Overlay */
         #admin-panel { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 20; justify-content: center; align-items: flex-end; }
@@ -73,6 +84,10 @@
         .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.8rem; border-radius: 8px; width: auto; }
         .btn-approve { background: #10B981; }
         .btn-approve:hover { background: #059669; }
+        
+        /* File Preview Container */
+        #file-preview-container { display: none; padding: 0.5rem 1rem; background: #f0fdf4; border-top: 1px solid #E5E7EB; font-size: 0.85rem; color: #166534; justify-content: space-between; align-items: center;}
+        #remove-file-btn { background: transparent; color: #991b1b; padding: 0; width: auto; font-size: 1rem; }
     </style>
 </head>
 <body>
@@ -107,9 +122,19 @@
             
             <div class="chat-messages" id="chat-messages"></div>
 
+            <div id="file-preview-container">
+                <span id="file-preview-name">Đã chọn file...</span>
+                <button id="remove-file-btn" onclick="removeSelectedFile()">✕</button>
+            </div>
+
             <div class="chat-input">
+                <label for="file-upload" class="attach-btn-label" title="Đính kèm file/ảnh">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
+                </label>
+                <input id="file-upload" type="file" onchange="handleFileSelect(event)">
+                
                 <input type="text" id="message-input" placeholder="Nhập tin nhắn..." autocomplete="off" onkeypress="handleSendPress(event)">
-                <button onclick="sendMessage()">Gửi</button>
+                <button id="send-btn" onclick="handleSendClick()">Gửi</button>
             </div>
         </div>
 
@@ -119,14 +144,12 @@
                     <h3>Quản lý thành viên</h3>
                     <span class="close-admin" onclick="toggleAdminPanel(false)">&times;</span>
                 </div>
-                <div class="user-list" id="pending-users-list">
-                    </div>
+                <div class="user-list" id="pending-users-list"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // CẤU HÌNH FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyDSjjQStfQIpSPpz28VAolRKC3VVjvPkGg",
             authDomain: "hihihaha-6df13.firebaseapp.com",
@@ -137,19 +160,17 @@
             databaseURL: "https://hihihaha-6df13-default-rtdb.firebaseio.com/" 
         };
 
-        // Khởi tạo
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.database();
-        const provider = new firebase.auth.GoogleAuthProvider();
+        const storage = firebase.storage(); // Khởi tạo Storage
 
-        // Thay đổi dòng này:
         const ADMIN_EMAIL = "buixuantrung890@gmail.com";
         let currentUserData = null;
         let messagesListener = null;
         let userStatusListener = null;
+        let selectedFile = null; // Biến lưu file chuẩn bị gửi
 
-        // --- QUẢN LÝ TRẠNG THÁI ĐĂNG NHẬP (AUTH STATE) ---
         auth.onAuthStateChanged((user) => {
             if (user) {
                 checkAndRouteUser(user);
@@ -160,27 +181,18 @@
         });
 
         function loginWithGoogle() {
-            auth.signInWithPopup(provider).catch((error) => {
+            auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch((error) => {
                 alert("Lỗi đăng nhập: " + error.message);
             });
         }
 
-        function logout() {
-            auth.signOut();
-        }
+        function logout() { auth.signOut(); }
 
         function checkAndRouteUser(user) {
             const userRef = db.ref('users/' + user.uid);
-            
-            // 1. Làm sạch email (viết thường toàn bộ và xóa khoảng trắng 2 đầu)
             const currentLoginEmail = user.email.toLowerCase().trim();
             const adminEmailCheck = ADMIN_EMAIL.toLowerCase().trim();
-        
-            // 2. BẬT ALERT ĐỂ BẮT QUẢ TANG TRÌNH DUYỆT ĐANG DÙNG EMAIL NÀO
-            // (Sau khi test thành công, bạn có thể xóa dòng alert này đi)
-            alert("Email đang đăng nhập thực tế là: [" + currentLoginEmail + "]");
-        
-            // Nếu là Admin đóng cứng
+
             if (currentLoginEmail === adminEmailCheck) {
                 userRef.update({ name: user.displayName, email: user.email, status: "approved", role: "admin" });
                 currentUserData = { uid: user.uid, name: user.displayName, role: "admin" };
@@ -188,8 +200,7 @@
                 enterChat();
                 return;
             }
-        
-            // Nếu là User thường (Code giữ nguyên như cũ của bạn)
+
             document.getElementById('btn-show-admin').style.display = 'none';
             
             if(userStatusListener) userRef.off('value', userStatusListener);
@@ -210,7 +221,6 @@
             });
         }
 
-        // --- GIAO DIỆN & TƯƠNG TÁC ---
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
@@ -222,41 +232,125 @@
             loadMessages();
         }
 
-        function handleSendPress(e) { if (e.key === 'Enter') sendMessage(); }
+        // --- XỬ LÝ CHỌN VÀ GỬI FILE ---
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            selectedFile = file;
+            document.getElementById('file-preview-name').innerText = `📎 ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+            document.getElementById('file-preview-container').style.display = 'flex';
+        }
 
-        function sendMessage() {
+        function removeSelectedFile() {
+            selectedFile = null;
+            document.getElementById('file-upload').value = '';
+            document.getElementById('file-preview-container').style.display = 'none';
+        }
+
+        function handleSendPress(e) { if (e.key === 'Enter') handleSendClick(); }
+
+        async function handleSendClick() {
             const input = document.getElementById('message-input');
             const text = input.value.trim();
-            if (text !== "" && currentUserData) {
-                db.ref('messages').push({
-                    uid: currentUserData.uid,
-                    sender: currentUserData.name,
-                    text: text,
-                    timestamp: firebase.database.ServerValue.TIMESTAMP
-                });
+            const btn = document.getElementById('send-btn');
+
+            if (text === "" && !selectedFile) return;
+
+            // Vô hiệu hóa nút gửi trong lúc đang xử lý (tránh spam click)
+            btn.disabled = true;
+            input.disabled = true;
+            
+            try {
+                if (selectedFile) {
+                    btn.innerText = "Đang tải...";
+                    
+                    // Upload file gốc không nén
+                    const fileRef = storage.ref(`chat_files/${Date.now()}_${selectedFile.name}`);
+                    const uploadTask = await fileRef.put(selectedFile);
+                    const fileUrl = await uploadTask.ref.getDownloadURL();
+                    
+                    // Xác định xem nó là ảnh hay file thường
+                    const isImage = selectedFile.type.startsWith('image/');
+                    
+                    // Đẩy tin nhắn chứa file vào DB
+                    await db.ref('messages').push({
+                        uid: currentUserData.uid,
+                        sender: currentUserData.name,
+                        type: isImage ? 'image' : 'file',
+                        fileUrl: fileUrl,
+                        fileName: selectedFile.name,
+                        text: text || "Gửi một tệp tin", // Nếu có gõ chữ kèm file thì lưu chữ, không thì ghi mặc định
+                        timestamp: firebase.database.ServerValue.TIMESTAMP
+                    });
+
+                    removeSelectedFile();
+                } else {
+                    // Gửi tin nhắn text bình thường
+                    await db.ref('messages').push({
+                        uid: currentUserData.uid,
+                        sender: currentUserData.name,
+                        type: 'text',
+                        text: text,
+                        timestamp: firebase.database.ServerValue.TIMESTAMP
+                    });
+                }
                 input.value = '';
+            } catch (error) {
+                alert("Lỗi khi gửi: " + error.message);
+            } finally {
+                // Khôi phục nút gửi
+                btn.disabled = false;
+                input.disabled = false;
+                btn.innerText = "Gửi";
+                input.focus();
             }
         }
 
+        // --- RENDER TIN NHẮN ---
         function loadMessages() {
             const chatBox = document.getElementById('chat-messages');
-            chatBox.innerHTML = ''; // Clear cũ
+            chatBox.innerHTML = ''; 
             if (messagesListener) db.ref('messages').off('child_added', messagesListener);
             
             messagesListener = db.ref('messages').orderByChild('timestamp').on('child_added', (snapshot) => {
                 const msg = snapshot.val();
                 const type = msg.uid === currentUserData.uid ? 'sent' : 'received';
-                appendMessage(msg.sender, msg.text, type);
+                appendMessage(msg, type);
             });
         }
 
-        function appendMessage(sender, text, type) {
+        function appendMessage(msgData, type) {
             const chatBox = document.getElementById('chat-messages');
             const div = document.createElement('div');
             div.className = `message ${type}`;
-            div.innerHTML = `<span class="message-sender">${sender}</span><div class="message-content">${text}</div>`;
+            
+            let contentHtml = '';
+            
+            // Xử lý hiển thị dựa trên type tin nhắn
+            const msgType = msgData.type || 'text'; // Fallback cho các tin nhắn cũ chưa có trường type
+
+            if (msgType === 'text') {
+                contentHtml = msgData.text;
+            } else if (msgType === 'image') {
+                // Render ảnh, bấm vào sẽ mở tab mới để xem full HD
+                let textPart = msgData.text && msgData.text !== "Gửi một tệp tin" ? `<div>${msgData.text}</div>` : '';
+                contentHtml = `${textPart}<img src="${msgData.fileUrl}" class="msg-image" onclick="window.open('${msgData.fileUrl}', '_blank')" title="Bấm để xem ảnh gốc">`;
+            } else if (msgType === 'file') {
+                // Render file document/zip thành link tải xuống
+                let textPart = msgData.text && msgData.text !== "Gửi một tệp tin" ? `<div>${msgData.text}</div>` : '';
+                contentHtml = `${textPart}<br>📎 <a href="${msgData.fileUrl}" target="_blank" class="msg-file-link" download>Tải về: ${msgData.fileName}</a>`;
+            }
+
+            div.innerHTML = `<span class="message-sender">${msgData.sender}</span><div class="message-content">${contentHtml}</div>`;
             chatBox.appendChild(div);
-            chatBox.scrollTop = chatBox.scrollHeight;
+            
+            // Đợi ảnh load xong mới cuộn xuống đáy
+            const imgs = div.querySelectorAll('img');
+            if (imgs.length > 0) {
+                imgs[0].onload = () => { chatBox.scrollTop = chatBox.scrollHeight; };
+            } else {
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
         }
 
         function cleanupListeners() {
@@ -266,7 +360,7 @@
             currentUserData = null;
         }
 
-        // --- TÍNH NĂNG DÀNH RIÊNG CHO ADMIN ---
+        // --- ADMIN PANEL ---
         function toggleAdminPanel(show) {
             document.getElementById('admin-panel').style.display = show ? 'flex' : 'none';
             if (show) loadPendingUsers();
@@ -279,7 +373,6 @@
             db.ref('users').once('value', (snapshot) => {
                 listRef.innerHTML = '';
                 let hasPending = false;
-                
                 snapshot.forEach((child) => {
                     const user = child.val();
                     const uid = child.key;
@@ -288,8 +381,7 @@
                         listRef.innerHTML += `
                             <div class="user-item">
                                 <div class="user-info">
-                                    <span class="user-name">${user.name}</span>
-                                    <span class="user-email">${user.email}</span>
+                                    <span class="user-name">${user.name}</span><span class="user-email">${user.email}</span>
                                 </div>
                                 <div class="user-actions">
                                     <button class="btn-sm btn-approve" onclick="updateUserStatus('${uid}', 'approved')">Duyệt</button>
@@ -299,17 +391,12 @@
                         `;
                     }
                 });
-
                 if (!hasPending) listRef.innerHTML = '<p style="text-align:center; color:gray; font-size: 0.9rem;">Không có ai đang chờ duyệt.</p>';
             });
         }
 
         function updateUserStatus(uid, status) {
-            db.ref('users/' + uid).update({ status: status })
-              .then(() => {
-                  loadPendingUsers(); // Reload lại danh sách
-              })
-              .catch(err => alert("Lỗi: " + err.message));
+            db.ref('users/' + uid).update({ status: status }).then(() => loadPendingUsers()).catch(err => alert("Lỗi: " + err.message));
         }
     </script>
 </body>
