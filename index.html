@@ -169,28 +169,33 @@
             auth.signOut();
         }
 
-        // --- KIỂM TRA PHÂN QUYỀN & CHUYỂN MÀN HÌNH ---
         function checkAndRouteUser(user) {
             const userRef = db.ref('users/' + user.uid);
             
+            // 1. Làm sạch email (viết thường toàn bộ và xóa khoảng trắng 2 đầu)
+            const currentLoginEmail = user.email.toLowerCase().trim();
+            const adminEmailCheck = ADMIN_EMAIL.toLowerCase().trim();
+        
+            // 2. BẬT ALERT ĐỂ BẮT QUẢ TANG TRÌNH DUYỆT ĐANG DÙNG EMAIL NÀO
+            // (Sau khi test thành công, bạn có thể xóa dòng alert này đi)
+            alert("Email đang đăng nhập thực tế là: [" + currentLoginEmail + "]");
+        
             // Nếu là Admin đóng cứng
-            if (user.email === ADMIN_EMAIL) {
+            if (currentLoginEmail === adminEmailCheck) {
                 userRef.update({ name: user.displayName, email: user.email, status: "approved", role: "admin" });
                 currentUserData = { uid: user.uid, name: user.displayName, role: "admin" };
-                document.getElementById('btn-show-admin').style.display = 'block'; // Hiện nút quản lý
+                document.getElementById('btn-show-admin').style.display = 'block'; 
                 enterChat();
                 return;
             }
-
-            // Nếu là User thường
+        
+            // Nếu là User thường (Code giữ nguyên như cũ của bạn)
             document.getElementById('btn-show-admin').style.display = 'none';
             
-            // Lắng nghe trạng thái realtime (để tự động vào chat khi Admin bấm duyệt)
             if(userStatusListener) userRef.off('value', userStatusListener);
             userStatusListener = userRef.on('value', (snapshot) => {
                 const data = snapshot.val();
                 if (!data) {
-                    // Lần đầu đăng nhập -> Tạo profile pending
                     userRef.set({ name: user.displayName, email: user.email, status: "pending", role: "user" });
                     showScreen('waiting-screen');
                 } else if (data.status === "pending") {
