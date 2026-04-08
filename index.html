@@ -181,7 +181,15 @@
             else { showScreen('login-screen'); cleanupListeners(); }
         });
 
-        function loginWithGoogle() { auth.signInWithPopup(provider).catch((error) => alert("Lỗi: " + error.message)); }
+        function loginWithGoogle() { 
+            // Dùng Redirect thay vì Popup để tương thích với điện thoại
+            auth.signInWithRedirect(provider); 
+        }
+
+        // Thêm đoạn này ngay bên dưới để bắt lỗi nếu quá trình chuyển trang gặp sự cố
+        auth.getRedirectResult().catch((error) => {
+            alert("Lỗi đăng nhập chuyển hướng: " + error.message);
+        });
         function logout() { auth.signOut(); }
 
         function checkAndRouteUser(user) {
